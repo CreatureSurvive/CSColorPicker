@@ -8,12 +8,57 @@
 
 /* Begin PBXBuildFile section */
 		B831F7EA22BD7EEF00812690 /* CSColorPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F7E822BD7EEF00812690 /* CSColorPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B831F7F622BD7FB600812690 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B831F7F322BD7FB500812690 /* LICENSE */; };
+		B831F7F722BD7FB600812690 /* Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = B831F7F422BD7FB500812690 /* Prefix.pch */; };
+		B831F81322BD804400812690 /* NSString+CSColorPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F7FA22BD804400812690 /* NSString+CSColorPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B831F81422BD804400812690 /* NSString+CSColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F7FB22BD804400812690 /* NSString+CSColorPicker.m */; };
+		B831F81522BD804400812690 /* UIColor+CSColorPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F7FC22BD804400812690 /* UIColor+CSColorPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B831F81622BD804400812690 /* UIColor+CSColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F7FD22BD804400812690 /* UIColor+CSColorPicker.m */; };
+		B831F81B22BD804400812690 /* CSColorPickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F80422BD804400812690 /* CSColorPickerViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B831F81C22BD804400812690 /* CSColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F80522BD804400812690 /* CSColorPickerViewController.m */; };
+		B831F81D22BD804400812690 /* CSColorSlider.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F80722BD804400812690 /* CSColorSlider.h */; };
+		B831F81E22BD804400812690 /* CSColorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F80822BD804400812690 /* CSColorSlider.m */; };
+		B831F82322BD804400812690 /* CSColorPickerBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F80F22BD804400812690 /* CSColorPickerBackgroundView.h */; };
+		B831F82422BD804400812690 /* CSColorPickerBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F81022BD804400812690 /* CSColorPickerBackgroundView.m */; };
+		B831F82522BD804400812690 /* CSGradientSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F81122BD804400812690 /* CSGradientSelection.h */; };
+		B831F82622BD804400812690 /* CSGradientSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F81222BD804400812690 /* CSGradientSelection.m */; };
+		B831F85422BED3E800812690 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B831F85322BED3E800812690 /* UIKit.framework */; };
+		B831F85E22BEE33100812690 /* CSColorObject.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F85C22BEE33000812690 /* CSColorObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B831F85F22BEE33100812690 /* CSColorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F85D22BEE33000812690 /* CSColorObject.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B831F84D22BED29900812690 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B831F84922BED29700812690 /* CSColorPickerExample.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B831F83022BED29500812690;
+			remoteInfo = CSColorPickerExample;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B831F7E522BD7EEF00812690 /* CSColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CSColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B831F7E822BD7EEF00812690 /* CSColorPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorPicker.h; sourceTree = "<group>"; };
 		B831F7E922BD7EEF00812690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B831F7F322BD7FB500812690 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		B831F7F422BD7FB500812690 /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
+		B831F7FA22BD804400812690 /* NSString+CSColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CSColorPicker.h"; sourceTree = "<group>"; };
+		B831F7FB22BD804400812690 /* NSString+CSColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CSColorPicker.m"; sourceTree = "<group>"; };
+		B831F7FC22BD804400812690 /* UIColor+CSColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+CSColorPicker.h"; sourceTree = "<group>"; };
+		B831F7FD22BD804400812690 /* UIColor+CSColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CSColorPicker.m"; sourceTree = "<group>"; };
+		B831F80422BD804400812690 /* CSColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColorPickerViewController.h; sourceTree = "<group>"; };
+		B831F80522BD804400812690 /* CSColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorPickerViewController.m; sourceTree = "<group>"; };
+		B831F80722BD804400812690 /* CSColorSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColorSlider.h; sourceTree = "<group>"; };
+		B831F80822BD804400812690 /* CSColorSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorSlider.m; sourceTree = "<group>"; };
+		B831F80F22BD804400812690 /* CSColorPickerBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColorPickerBackgroundView.h; sourceTree = "<group>"; };
+		B831F81022BD804400812690 /* CSColorPickerBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorPickerBackgroundView.m; sourceTree = "<group>"; };
+		B831F81122BD804400812690 /* CSGradientSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSGradientSelection.h; sourceTree = "<group>"; };
+		B831F81222BD804400812690 /* CSGradientSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSGradientSelection.m; sourceTree = "<group>"; };
+		B831F84922BED29700812690 /* CSColorPickerExample.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CSColorPickerExample.xcodeproj; path = CSColorPickerExample/CSColorPickerExample.xcodeproj; sourceTree = "<group>"; };
+		B831F85322BED3E800812690 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B831F85C22BEE33000812690 /* CSColorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColorObject.h; sourceTree = "<group>"; };
+		B831F85D22BEE33000812690 /* CSColorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -21,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B831F85422BED3E800812690 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -30,8 +76,10 @@
 		B831F7DB22BD7EEF00812690 = {
 			isa = PBXGroup;
 			children = (
+				B831F84922BED29700812690 /* CSColorPickerExample.xcodeproj */,
 				B831F7E722BD7EEF00812690 /* CSColorPicker */,
 				B831F7E622BD7EEF00812690 /* Products */,
+				B831F85222BED3E700812690 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -46,10 +94,90 @@
 		B831F7E722BD7EEF00812690 /* CSColorPicker */ = {
 			isa = PBXGroup;
 			children = (
+				B831F7F322BD7FB500812690 /* LICENSE */,
+				B831F7F422BD7FB500812690 /* Prefix.pch */,
 				B831F7E822BD7EEF00812690 /* CSColorPicker.h */,
 				B831F7E922BD7EEF00812690 /* Info.plist */,
+				B831F7F822BD804400812690 /* source */,
 			);
 			path = CSColorPicker;
+			sourceTree = "<group>";
+		};
+		B831F7F822BD804400812690 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				B831F7F922BD804400812690 /* Categories */,
+				B831F80322BD804400812690 /* Controllers */,
+				B831F80622BD804400812690 /* Controls */,
+				B831F85B22BEE33000812690 /* Objects */,
+				B831F80E22BD804400812690 /* Views */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		B831F7F922BD804400812690 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				B831F7FA22BD804400812690 /* NSString+CSColorPicker.h */,
+				B831F7FB22BD804400812690 /* NSString+CSColorPicker.m */,
+				B831F7FC22BD804400812690 /* UIColor+CSColorPicker.h */,
+				B831F7FD22BD804400812690 /* UIColor+CSColorPicker.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		B831F80322BD804400812690 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B831F80422BD804400812690 /* CSColorPickerViewController.h */,
+				B831F80522BD804400812690 /* CSColorPickerViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B831F80622BD804400812690 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				B831F80722BD804400812690 /* CSColorSlider.h */,
+				B831F80822BD804400812690 /* CSColorSlider.m */,
+			);
+			path = Controls;
+			sourceTree = "<group>";
+		};
+		B831F80E22BD804400812690 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B831F80F22BD804400812690 /* CSColorPickerBackgroundView.h */,
+				B831F81022BD804400812690 /* CSColorPickerBackgroundView.m */,
+				B831F81122BD804400812690 /* CSGradientSelection.h */,
+				B831F81222BD804400812690 /* CSGradientSelection.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B831F84A22BED29700812690 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B831F84E22BED29900812690 /* CSColorPickerExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B831F85222BED3E700812690 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B831F85322BED3E800812690 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B831F85B22BEE33000812690 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				B831F85C22BEE33000812690 /* CSColorObject.h */,
+				B831F85D22BEE33000812690 /* CSColorObject.m */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -59,7 +187,15 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B831F81B22BD804400812690 /* CSColorPickerViewController.h in Headers */,
+				B831F81522BD804400812690 /* UIColor+CSColorPicker.h in Headers */,
 				B831F7EA22BD7EEF00812690 /* CSColorPicker.h in Headers */,
+				B831F85E22BEE33100812690 /* CSColorObject.h in Headers */,
+				B831F81322BD804400812690 /* NSString+CSColorPicker.h in Headers */,
+				B831F81D22BD804400812690 /* CSColorSlider.h in Headers */,
+				B831F7F722BD7FB600812690 /* Prefix.pch in Headers */,
+				B831F82322BD804400812690 /* CSColorPickerBackgroundView.h in Headers */,
+				B831F82522BD804400812690 /* CSGradientSelection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +244,12 @@
 			mainGroup = B831F7DB22BD7EEF00812690;
 			productRefGroup = B831F7E622BD7EEF00812690 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B831F84A22BED29700812690 /* Products */;
+					ProjectRef = B831F84922BED29700812690 /* CSColorPickerExample.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B831F7E422BD7EEF00812690 /* CSColorPicker */,
@@ -115,11 +257,22 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		B831F84E22BED29900812690 /* CSColorPickerExample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = CSColorPickerExample.app;
+			remoteRef = B831F84D22BED29900812690 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		B831F7E322BD7EEF00812690 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B831F7F622BD7FB600812690 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +283,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B831F85F22BEE33100812690 /* CSColorObject.m in Sources */,
+				B831F81C22BD804400812690 /* CSColorPickerViewController.m in Sources */,
+				B831F82622BD804400812690 /* CSGradientSelection.m in Sources */,
+				B831F81422BD804400812690 /* NSString+CSColorPicker.m in Sources */,
+				B831F81622BD804400812690 /* UIColor+CSColorPicker.m in Sources */,
+				B831F81E22BD804400812690 /* CSColorSlider.m in Sources */,
+				B831F82422BD804400812690 /* CSColorPickerBackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
