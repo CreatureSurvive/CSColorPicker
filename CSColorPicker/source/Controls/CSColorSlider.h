@@ -29,4 +29,7 @@ typedef NSUInteger CSColorSliderType;
 
 - (instancetype)initWithFrame:(CGRect)frame sliderType:(CSColorSliderType)sliderType label:(NSString *)label startColor:(UIColor *)startColor;
 - (void)updateTrackImage;
+
+- (void)setBlurStyle:(UIBlurEffectStyle)style;
+
 @end

@@ -16,7 +16,9 @@
 
 @end
 
-@implementation CSColorSlider
+@implementation CSColorSlider {
+	UIVisualEffectView *_cellBackgroundBlur;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame sliderType:(CSColorSliderType)sliderType label:(NSString *)label startColor:(UIColor *)startColor {
     self = [super initWithFrame:frame];
@@ -81,11 +83,11 @@
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.sliderValueLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:0.98 constant:0]];
 
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-    UIVisualEffectView *cellBackgroundBlur = [[UIVisualEffectView alloc] initWithEffect:effect];
-    cellBackgroundBlur.frame = self.bounds;
-    cellBackgroundBlur.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    cellBackgroundBlur.userInteractionEnabled = NO;
-    [self insertSubview:cellBackgroundBlur atIndex:0];
+    _cellBackgroundBlur = [[UIVisualEffectView alloc] initWithEffect:effect];
+    _cellBackgroundBlur.frame = self.bounds;
+    _cellBackgroundBlur.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _cellBackgroundBlur.userInteractionEnabled = NO;
+    [self insertSubview:_cellBackgroundBlur atIndex:0];
 
     self.sliderType = sliderType;
     self.selectedColor = startColor;
@@ -303,6 +305,16 @@
     }
 
     [self.colorTrackImageView setImage:self.currentTrackImage];
+}
+
+- (void)setBlurStyle:(UIBlurEffectStyle)style {
+	BOOL isDark = (style == UIBlurEffectStyleDark);
+	if (_cellBackgroundBlur)
+		[_cellBackgroundBlur setEffect:[UIBlurEffect effectWithStyle:style]];
+	if (_sliderLabel)
+		[_sliderLabel setTextColor:isDark ? UIColor.lightTextColor : UIColor.darkGrayColor];
+	if (_sliderValueLabel)
+		[_sliderValueLabel setTextColor:isDark ? UIColor.lightTextColor : UIColor.darkGrayColor];
 }
 
 - (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {

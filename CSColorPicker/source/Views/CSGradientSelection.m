@@ -9,6 +9,7 @@
 #import "NSString+CSColorPicker.h"
 
 @implementation CSGradientSelection {
+	UIVisualEffectView *_blurView;
 	UIScrollView *_scrollView;
 	CGFloat _height;
 	CGFloat _spacing;
@@ -28,11 +29,11 @@
 }
 
 - (void)commonInit {
-    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
-    blurView.frame = self.bounds;
-    blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    blurView.userInteractionEnabled = NO;
-	[self addSubview:blurView];
+    _blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
+    _blurView.frame = self.bounds;
+    _blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _blurView.userInteractionEnabled = NO;
+	[self addSubview:_blurView];
 
 	_buttonPadding = 2.5;
 	
@@ -49,7 +50,7 @@
     _gradient.endPoint = CGPointMake(1, 0.5);
 	_gradient.hidden = YES;
 
-	[blurView.layer addSublayer:self.gradient];
+	[_blurView.layer addSublayer:self.gradient];
 
 	[self addSubview:_scrollView];
 	
@@ -67,6 +68,11 @@
 - (void)setBackgroundColor:(UIColor *)color {
 	[super setBackgroundColor:color];
 	_scrollView.backgroundColor = color;
+}
+
+- (void)setBlurStyle:(UIBlurEffectStyle)style {
+	if (_blurView)
+		[_blurView setEffect:[UIBlurEffect effectWithStyle:style]];
 }
 
 - (void)generateButtons {

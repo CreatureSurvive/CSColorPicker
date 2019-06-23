@@ -25,6 +25,7 @@
 		B831F85422BED3E800812690 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B831F85322BED3E800812690 /* UIKit.framework */; };
 		B831F85E22BEE33100812690 /* CSColorObject.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F85C22BEE33000812690 /* CSColorObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B831F85F22BEE33100812690 /* CSColorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F85D22BEE33000812690 /* CSColorObject.m */; };
+		B831F86122BEF99100812690 /* CSColorPickerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F86022BEF80600812690 /* CSColorPickerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B831F85322BED3E800812690 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B831F85C22BEE33000812690 /* CSColorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColorObject.h; sourceTree = "<group>"; };
 		B831F85D22BEE33000812690 /* CSColorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorObject.m; sourceTree = "<group>"; };
+		B831F86022BEF80600812690 /* CSColorPickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorPickerDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 			children = (
 				B831F85C22BEE33000812690 /* CSColorObject.h */,
 				B831F85D22BEE33000812690 /* CSColorObject.m */,
+				B831F86022BEF80600812690 /* CSColorPickerDelegate.h */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				B831F81B22BD804400812690 /* CSColorPickerViewController.h in Headers */,
 				B831F81522BD804400812690 /* UIColor+CSColorPicker.h in Headers */,
 				B831F7EA22BD7EEF00812690 /* CSColorPicker.h in Headers */,
+				B831F86122BEF99100812690 /* CSColorPickerDelegate.h in Headers */,
 				B831F85E22BEE33100812690 /* CSColorObject.h in Headers */,
 				B831F81322BD804400812690 /* NSString+CSColorPicker.h in Headers */,
 				B831F81D22BD804400812690 /* CSColorSlider.h in Headers */,
@@ -417,6 +421,13 @@
 		B831F7EE22BD7EEF00812690 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					arm64,
+					arm64e,
+					armv7,
+					armv7s,
+					"$(ARCHS_STANDARD)",
+				);
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -426,6 +437,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CSColorPicker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -441,6 +453,13 @@
 		B831F7EF22BD7EEF00812690 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					arm64,
+					arm64e,
+					armv7,
+					armv7s,
+					"$(ARCHS_STANDARD)",
+				);
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -450,6 +469,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CSColorPicker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
