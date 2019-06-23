@@ -5,6 +5,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CSColorObject.h"
+#import "CSColorCellObject.h"
 #import "CSColorPickerDelegate.h"
 #import "UIColor+CSColorPicker.h"
 #import "NSString+CSColorPicker.h"
@@ -16,6 +17,7 @@
 @property (nonatomic, retain) NSString *identifier;
 @property (nonatomic, assign) UIBlurEffectStyle blurStyle;
 @property (nonatomic, assign) id<CSColorPickerDelegate> delegate;
+@property (nonatomic, assign) id<CSColorCellObject> cellObject;
 @property (nonatomic, readonly) CSColorObject *colorObject;
 
 - (instancetype)initWithColor:(UIColor *)color showingAlpha:(BOOL)alphaEnabled;

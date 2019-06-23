@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "TableViewController.h"
 
 @interface ViewController ()
 
@@ -30,7 +31,7 @@
 	stack.axis = UILayoutConstraintAxisVertical;
 	stack.distribution = UIStackViewDistributionFillEqually;
 	stack.center = self.view.center;
-	stack.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin);
+	stack.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 	[self.view addSubview:stack];
 	
 	UIButton *pushCP = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -45,11 +46,15 @@
 	UIButton *presentGP = [UIButton buttonWithType:UIButtonTypeSystem];
 	[presentGP setTitle:@"Present Gradient Picker" forState:UIControlStateNormal];
 	[presentGP addTarget:self action:@selector(presentGP) forControlEvents:UIControlEventTouchUpInside];
+	UIButton *pushTable = [UIButton buttonWithType:UIButtonTypeSystem];
+	[pushTable setTitle:@"Push Table" forState:UIControlStateNormal];
+	[pushTable addTarget:self action:@selector(pushTable) forControlEvents:UIControlEventTouchUpInside];
 	
 	[stack addArrangedSubview:pushCP];
 	[stack addArrangedSubview:presentCP];
 	[stack addArrangedSubview:pushGP];
 	[stack addArrangedSubview:presentGP];
+	[stack addArrangedSubview:pushTable];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -68,17 +73,18 @@
 		case 0: {
 			NSString *hex = [[NSUserDefaults standardUserDefaults] stringForKey:COLOR_ID] ? : @"FF0000";
 			colorObject = [CSColorObject colorObjectWithHex:hex];
+			colorObject.identifier = COLOR_ID;
 		} break;
 			
 		default:{
 			NSString *hex = [[NSUserDefaults standardUserDefaults] stringForKey:GRADIENT_ID] ? : @"FF0000,00FF00";
 			colorObject = [CSColorObject gradientObjectWithHex:hex];
+			colorObject.identifier = GRADIENT_ID;
 		} break;
 	}
 	
 	CSColorPickerViewController *vc = [[CSColorPickerViewController alloc] initWithColorObject:colorObject showingAlpha:NO];
 	vc.delegate = self;
-	vc.identifier = type == 0 ? COLOR_ID : GRADIENT_ID;
 	
 	return vc;
 }
@@ -105,18 +111,20 @@
 	[self presentViewController:nc animated:YES completion:nil];
 }
 
+- (void)pushTable {
+	TableViewController *tvc = [[TableViewController alloc] init];
+	[self.navigationController pushViewController:tvc animated:YES];
+}
+
 #pragma mark - CSColorPickerDelegate
 
 // called whenever the color picker is dismissed
 - (void)colorPicker:(CSColorPickerViewController *)picker didPickColor:(CSColorObject *)colorObject {
 	NSLog(@"ColorPicker didPickColor: %@ (%@)", colorObject.hexValue, colorObject.identifier);
-	if (colorObject.isGradient)
-		_gradient.colors = [colorObject.hexValue cscp_gradientStringCGColors];
-	else
-		_gradient.colors = @[(id)colorObject.color.CGColor, (id)colorObject.color.CGColor];
+	_gradient.colors = [colorObject gradientCGColors];
 }
 
-// called whenecer the color picker finishes changing colors
+// called whenever the color picker finishes changing colors
 - (void)colorPicker:(CSColorPickerViewController *)picker didUpdateColor:(CSColorObject *)colorObject {
 	NSLog(@"ColorPicker didUpdateColor: %@ (%@)", colorObject.hexValue, colorObject.identifier);
 }

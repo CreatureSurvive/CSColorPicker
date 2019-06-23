@@ -34,6 +34,12 @@
 		B831F87822BF44B900812690 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F87722BF44B900812690 /* main.m */; };
 		B831F87C22BF452B00812690 /* CSColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B831F7E522BD7EEF00812690 /* CSColorPicker.framework */; };
 		B831F87E22BF464E00812690 /* CSColorPicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B831F7E522BD7EEF00812690 /* CSColorPicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B8C9435C22BF5D05002C39C5 /* CSColorDisplayCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9435A22BF5D05002C39C5 /* CSColorDisplayCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8C9435D22BF5D05002C39C5 /* CSColorDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9435B22BF5D05002C39C5 /* CSColorDisplayCell.m */; };
+		B8C9435F22BF6175002C39C5 /* CSColorCellObject.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9435E22BF60F8002C39C5 /* CSColorCellObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8C9436222BF67E7002C39C5 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9436122BF67E7002C39C5 /* TableViewController.m */; };
+		B8C9436522BF7E45002C39C5 /* CSGradientDisplayCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9436322BF7E45002C39C5 /* CSGradientDisplayCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B8C9436622BF7E45002C39C5 /* CSGradientDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9436422BF7E45002C39C5 /* CSGradientDisplayCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +98,13 @@
 		B831F87422BF44B900812690 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B831F87622BF44B900812690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B831F87722BF44B900812690 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B8C9435A22BF5D05002C39C5 /* CSColorDisplayCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorDisplayCell.h; sourceTree = "<group>"; };
+		B8C9435B22BF5D05002C39C5 /* CSColorDisplayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSColorDisplayCell.m; sourceTree = "<group>"; };
+		B8C9435E22BF60F8002C39C5 /* CSColorCellObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorCellObject.h; sourceTree = "<group>"; };
+		B8C9436022BF67E7002C39C5 /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		B8C9436122BF67E7002C39C5 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		B8C9436322BF7E45002C39C5 /* CSGradientDisplayCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSGradientDisplayCell.h; sourceTree = "<group>"; };
+		B8C9436422BF7E45002C39C5 /* CSGradientDisplayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSGradientDisplayCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,21 +153,22 @@
 				B831F7F422BD7FB500812690 /* Prefix.pch */,
 				B831F7E822BD7EEF00812690 /* CSColorPicker.h */,
 				B831F7E922BD7EEF00812690 /* Info.plist */,
-				B831F7F822BD804400812690 /* source */,
+				B831F7F822BD804400812690 /* Classes */,
 			);
 			path = CSColorPicker;
 			sourceTree = "<group>";
 		};
-		B831F7F822BD804400812690 /* source */ = {
+		B831F7F822BD804400812690 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B8C9435922BF5CE2002C39C5 /* Cells */,
 				B831F7F922BD804400812690 /* Categories */,
 				B831F80322BD804400812690 /* Controllers */,
 				B831F80622BD804400812690 /* Controls */,
 				B831F85B22BEE33000812690 /* Objects */,
 				B831F80E22BD804400812690 /* Views */,
 			);
-			path = source;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		B831F7F922BD804400812690 /* Categories */ = {
@@ -210,6 +224,7 @@
 			children = (
 				B831F85C22BEE33000812690 /* CSColorObject.h */,
 				B831F85D22BEE33000812690 /* CSColorObject.m */,
+				B8C9435E22BF60F8002C39C5 /* CSColorCellObject.h */,
 				B831F86022BEF80600812690 /* CSColorPickerDelegate.h */,
 			);
 			path = Objects;
@@ -218,10 +233,7 @@
 		B831F86722BF44B700812690 /* CSColorPickerExample_IOS */ = {
 			isa = PBXGroup;
 			children = (
-				B831F86822BF44B700812690 /* AppDelegate.h */,
-				B831F86922BF44B700812690 /* AppDelegate.m */,
-				B831F86B22BF44B700812690 /* ViewController.h */,
-				B831F86C22BF44B700812690 /* ViewController.m */,
+				B8C9435822BF599D002C39C5 /* Classes */,
 				B831F86E22BF44B700812690 /* Main.storyboard */,
 				B831F87122BF44B900812690 /* Assets.xcassets */,
 				B831F87322BF44B900812690 /* LaunchScreen.storyboard */,
@@ -229,6 +241,30 @@
 				B831F87722BF44B900812690 /* main.m */,
 			);
 			path = CSColorPickerExample_IOS;
+			sourceTree = "<group>";
+		};
+		B8C9435822BF599D002C39C5 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B831F86822BF44B700812690 /* AppDelegate.h */,
+				B831F86922BF44B700812690 /* AppDelegate.m */,
+				B831F86B22BF44B700812690 /* ViewController.h */,
+				B831F86C22BF44B700812690 /* ViewController.m */,
+				B8C9436022BF67E7002C39C5 /* TableViewController.h */,
+				B8C9436122BF67E7002C39C5 /* TableViewController.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		B8C9435922BF5CE2002C39C5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B8C9435A22BF5D05002C39C5 /* CSColorDisplayCell.h */,
+				B8C9435B22BF5D05002C39C5 /* CSColorDisplayCell.m */,
+				B8C9436322BF7E45002C39C5 /* CSGradientDisplayCell.h */,
+				B8C9436422BF7E45002C39C5 /* CSGradientDisplayCell.m */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,14 +276,17 @@
 			files = (
 				B831F81B22BD804400812690 /* CSColorPickerViewController.h in Headers */,
 				B831F81522BD804400812690 /* UIColor+CSColorPicker.h in Headers */,
+				B8C9436522BF7E45002C39C5 /* CSGradientDisplayCell.h in Headers */,
 				B831F7EA22BD7EEF00812690 /* CSColorPicker.h in Headers */,
 				B831F86122BEF99100812690 /* CSColorPickerDelegate.h in Headers */,
 				B831F85E22BEE33100812690 /* CSColorObject.h in Headers */,
+				B8C9435F22BF6175002C39C5 /* CSColorCellObject.h in Headers */,
 				B831F81322BD804400812690 /* NSString+CSColorPicker.h in Headers */,
 				B831F81D22BD804400812690 /* CSColorSlider.h in Headers */,
 				B831F7F722BD7FB600812690 /* Prefix.pch in Headers */,
 				B831F82322BD804400812690 /* CSColorPickerBackgroundView.h in Headers */,
 				B831F82522BD804400812690 /* CSGradientSelection.h in Headers */,
+				B8C9435C22BF5D05002C39C5 /* CSColorDisplayCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,7 +398,9 @@
 				B831F81422BD804400812690 /* NSString+CSColorPicker.m in Sources */,
 				B831F81622BD804400812690 /* UIColor+CSColorPicker.m in Sources */,
 				B831F81E22BD804400812690 /* CSColorSlider.m in Sources */,
+				B8C9435D22BF5D05002C39C5 /* CSColorDisplayCell.m in Sources */,
 				B831F82422BD804400812690 /* CSColorPickerBackgroundView.m in Sources */,
+				B8C9436622BF7E45002C39C5 /* CSGradientDisplayCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +411,7 @@
 				B831F86D22BF44B700812690 /* ViewController.m in Sources */,
 				B831F87822BF44B900812690 /* main.m in Sources */,
 				B831F86A22BF44B700812690 /* AppDelegate.m in Sources */,
+				B8C9436222BF67E7002C39C5 /* TableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

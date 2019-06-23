@@ -63,6 +63,7 @@
 		_isGradient = colorObject.isGradient;
 		_colors = colorObject.colors ? [colorObject.colors mutableCopy] : nil;
 		_color = colorObject.color;
+		_identifier = colorObject.identifier;
 		_alphaEnabled = alphaEnabled;
 		_blurStyle = UIBlurEffectStyleExtraLight;
 	}
@@ -339,6 +340,10 @@
 	
 	if (self.delegate && [self.delegate respondsToSelector:@selector(colorPicker:didPickColor:)]) {
 		[self.delegate colorPicker:self didPickColor:_colorObject];
+	}
+	
+	if (self.cellObject) {
+		[self.cellObject setColorObject:_colorObject];
 	}
 }
 

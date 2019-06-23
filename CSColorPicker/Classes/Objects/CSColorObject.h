@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)gradientObjectWithHex:(NSString *)hex;
 + (instancetype)gradientObjectWithColors:(NSArray <UIColor *> *)colors;
 
+- (NSArray<id>*)gradientCGColors;
+
 - (instancetype)init NS_UNAVAILABLE;
 @end
 

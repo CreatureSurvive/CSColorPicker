@@ -11,7 +11,9 @@
 #import "NSString+CSColorPicker.h"
 
 
-@implementation CSColorObject
+@implementation CSColorObject {
+	NSArray *_gradientCGColors;
+}
 
 + (instancetype)colorObjectWithHex:(NSString *)hex {
 	if (!hex || ![hex cscp_validHex]) hex = @"#FF0000";
@@ -60,6 +62,19 @@
 	}
 	
 	return string ? : @"";
+}
+
+- (NSArray<id>*)gradientCGColors {
+	if (!_gradientCGColors) {
+		NSArray *colors = _isGradient ? self.colors : @[self.color, self.color];
+		NSMutableArray *cgColors = [NSMutableArray new];
+		for (UIColor *color in colors) {
+			[cgColors addObject:(id)color.CGColor];
+		}
+		_gradientCGColors = [cgColors copy];
+	}
+	
+	return _gradientCGColors;
 }
 
 @end
