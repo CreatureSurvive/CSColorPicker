@@ -30,27 +30,27 @@ struct CGFloat;
     switch ([colorString length]) {
         case 3:
             alpha = 1.0f;
-            red = [self _cscp_colorComponentFrom:colorString start:0 length:1];
+            red   = [self _cscp_colorComponentFrom:colorString start:0 length:1];
             green = [self _cscp_colorComponentFrom:colorString start:1 length:1];
-            blue = [self _cscp_colorComponentFrom:colorString start:2 length:1];
+            blue  = [self _cscp_colorComponentFrom:colorString start:2 length:1];
             break;
         case 4:
             alpha = [self _cscp_colorComponentFrom:colorString start:0 length:1];
-            red = [self _cscp_colorComponentFrom:colorString start:1 length:1];
+            red   = [self _cscp_colorComponentFrom:colorString start:1 length:1];
             green = [self _cscp_colorComponentFrom:colorString start:2 length:1];
-            blue = [self _cscp_colorComponentFrom:colorString start:3 length:1];
+            blue  = [self _cscp_colorComponentFrom:colorString start:3 length:1];
             break;
         case 6:
             alpha = 1.0f;
-            red = [self _cscp_colorComponentFrom:colorString start:0 length:2];
+            red   = [self _cscp_colorComponentFrom:colorString start:0 length:2];
             green = [self _cscp_colorComponentFrom:colorString start:2 length:2];
-            blue = [self _cscp_colorComponentFrom:colorString start:4 length:2];
+            blue  = [self _cscp_colorComponentFrom:colorString start:4 length:2];
             break;
         case 8:
             alpha = [self _cscp_colorComponentFrom:colorString start:0 length:2];
-            red = [self _cscp_colorComponentFrom:colorString start:2 length:2];
+            red   = [self _cscp_colorComponentFrom:colorString start:2 length:2];
             green = [self _cscp_colorComponentFrom:colorString start:4 length:2];
-            blue = [self _cscp_colorComponentFrom:colorString start:6 length:2];
+            blue  = [self _cscp_colorComponentFrom:colorString start:6 length:2];
             break;
         default:
             alpha = 100.0f;

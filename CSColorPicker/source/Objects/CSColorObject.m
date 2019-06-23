@@ -34,7 +34,7 @@
 }
 
 + (instancetype)gradientObjectWithHex:(NSString *)hex {
-	if (!hex || ![hex cscp_validHex]) hex = @"#000000,FFFFFF";
+	if (!hex) hex = @"#000000,FFFFFF";
 	CSColorObject * object = [CSColorObject new];
 	object.isGradient = YES;
 	object.hexValue = hex;

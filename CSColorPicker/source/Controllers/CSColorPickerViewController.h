@@ -11,15 +11,17 @@
 
 @interface CSColorPickerViewController : UIViewController
 
-@property (nonatomic, assign) BOOL alphaEnabled;
 @property (nonatomic, retain) UIColor *color;
 @property (nonatomic, retain) NSMutableArray<UIColor *> *colors;
 @property (nonatomic, retain) NSString *identifier;
 @property (nonatomic, assign) UIBlurEffectStyle blurStyle;
 @property (nonatomic, assign) id<CSColorPickerDelegate> delegate;
+@property (nonatomic, readonly) CSColorObject *colorObject;
 
 - (instancetype)initWithColor:(UIColor *)color showingAlpha:(BOOL)alphaEnabled;
 - (instancetype)initWithColors:(NSArray<UIColor*> *)colors showingAlpha:(BOOL)alphaEnabled;
 - (instancetype)initWithColorObject:(CSColorObject *)color showingAlpha:(BOOL)alphaEnabled;
+
+- (void)setBlurStyle:(UIBlurEffectStyle)blurStyle animated:(BOOL)animated;
 
 @end

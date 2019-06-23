@@ -50,7 +50,7 @@
     _gradient.endPoint = CGPointMake(1, 0.5);
 	_gradient.hidden = YES;
 
-	[_blurView.layer addSublayer:self.gradient];
+	[self.layer addSublayer:self.gradient];
 
 	[self addSubview:_scrollView];
 	

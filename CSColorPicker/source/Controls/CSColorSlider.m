@@ -59,7 +59,7 @@
     // set the slider label
     self.sliderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.sliderLabel setNumberOfLines:1];
-    [self.sliderLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
+	[self.sliderLabel setFont:[UIFont boldSystemFontOfSize:16.0f]];
     [self.sliderLabel setText:label];
     [self.sliderLabel setBackgroundColor:[UIColor clearColor]];
     [self.sliderLabel setTextColor:[UIColor blackColor]];
@@ -72,7 +72,7 @@
     // set the value slider
     self.sliderValueLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     [self.sliderValueLabel setNumberOfLines:1];
-    [self.sliderValueLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16]];
+    [self.sliderValueLabel setFont:[UIFont systemFontOfSize:16.0f]];
     [self.sliderValueLabel setText:@"0"];
     [self.sliderValueLabel setBackgroundColor:[UIColor clearColor]];
     [self.sliderValueLabel setTextColor:[UIColor blackColor]];

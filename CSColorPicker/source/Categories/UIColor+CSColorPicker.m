@@ -29,27 +29,27 @@
     switch ([colorString length]) {
         case 3:
             alpha = 1.0f;
-            red = [self _cscp_colorComponentFrom:colorString start:0 length:1];
+            red   = [self _cscp_colorComponentFrom:colorString start:0 length:1];
             green = [self _cscp_colorComponentFrom:colorString start:1 length:1];
-            blue = [self _cscp_colorComponentFrom:colorString start:2 length:1];
+            blue  = [self _cscp_colorComponentFrom:colorString start:2 length:1];
             break;
         case 4:
             alpha = [self _cscp_colorComponentFrom:colorString start:0 length:1];
-            red = [self _cscp_colorComponentFrom:colorString start:1 length:1];
+            red   = [self _cscp_colorComponentFrom:colorString start:1 length:1];
             green = [self _cscp_colorComponentFrom:colorString start:2 length:1];
-            blue = [self _cscp_colorComponentFrom:colorString start:3 length:1];
+            blue  = [self _cscp_colorComponentFrom:colorString start:3 length:1];
             break;
         case 6:
             alpha = 1.0f;
-            red = [self _cscp_colorComponentFrom:colorString start:0 length:2];
+            red   = [self _cscp_colorComponentFrom:colorString start:0 length:2];
             green = [self _cscp_colorComponentFrom:colorString start:2 length:2];
-            blue = [self _cscp_colorComponentFrom:colorString start:4 length:2];
+            blue  = [self _cscp_colorComponentFrom:colorString start:4 length:2];
             break;
         case 8:
             alpha = [self _cscp_colorComponentFrom:colorString start:0 length:2];
-            red = [self _cscp_colorComponentFrom:colorString start:2 length:2];
+            red   = [self _cscp_colorComponentFrom:colorString start:2 length:2];
             green = [self _cscp_colorComponentFrom:colorString start:4 length:2];
-            blue = [self _cscp_colorComponentFrom:colorString start:6 length:2];
+            blue  = [self _cscp_colorComponentFrom:colorString start:6 length:2];
             break;
         default:
             alpha = 100.0f;
@@ -76,9 +76,9 @@
 
     CGFloat red, green, blue;
     [color getRed:&red green:&green blue:&blue alpha:nil];
-    red = roundf(red * 255.0f);
+    red   = roundf(red * 255.0f);
     green = roundf(green * 255.0f);
-    blue = roundf(blue * 255.0f);
+    blue  = roundf(blue * 255.0f);
 
     return [[NSString stringWithFormat:@"%02x%02x%02x", (int)red, (int)green, (int)blue] uppercaseString];
 }
@@ -87,9 +87,9 @@
 
     CGFloat red, green, blue, alpha;
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
-    red = roundf(red * 255.0f);
+    red   = roundf(red * 255.0f);
     green = roundf(green * 255.0f);
-    blue = roundf(blue * 255.0f);
+    blue  = roundf(blue * 255.0f);
     alpha = roundf(alpha * 255.0f);
 
     return include ? [[NSString stringWithFormat:@"%02x%02x%02x%02x", (int)alpha, (int)red, (int)green, (int)blue] uppercaseString] :

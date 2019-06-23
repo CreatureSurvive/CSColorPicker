@@ -12,5 +12,6 @@
 
 @optional
 - (void)colorPicker:(CSColorPickerViewController *)picker didPickColor:(CSColorObject *)colorObject;
+- (void)colorPicker:(CSColorPickerViewController *)picker didUpdateColor:(CSColorObject *)colorObject;
 
 @end
