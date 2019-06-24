@@ -79,7 +79,8 @@
 
 	_colorPickerContainerView = [[UIView alloc] initWithFrame:bounds];
 	_colorPickerContainerView.tag = 199;
-	_colorPickerPreviewView = [[CSColorPickerPreviewView alloc] initWithFrame:bounds alphaEnabled:_alphaEnabled];
+	_colorPickerPreviewView = [[CSColorPickerPreviewView alloc] initWithFrame:self.view.bounds alphaEnabled:_alphaEnabled];
+	[_colorPickerPreviewView setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 	[_colorPickerContainerView addSubview:_colorPickerPreviewView.labelContainer];
 	
 	// top stack
@@ -177,10 +178,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	self.navigationItem.rightBarButtonItems = @[
-		[[UIBarButtonItem alloc] initWithTitle:@"#" style:UIBarButtonItemStylePlain target:self action:@selector(presentHexColorAlert)],
-		[[UIBarButtonItem alloc] initWithTitle:@"•" style:UIBarButtonItemStylePlain target:self action:@selector(toggleStyle)]
-	];
+	if (self.showsDarkmodeToggle) {
+		self.navigationItem.rightBarButtonItems = @[
+			[[UIBarButtonItem alloc] initWithTitle:@"#" style:UIBarButtonItemStylePlain target:self action:@selector(presentHexColorAlert)],
+			[[UIBarButtonItem alloc] initWithTitle:self->_blurStyle == UIBlurEffectStyleDark ? @"Light" : @"Dark" style:UIBarButtonItemStylePlain target:self action:@selector(toggleStyle:)]
+		];
+	} else {
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"#" style:UIBarButtonItemStylePlain target:self action:@selector(presentHexColorAlert)];
+	}
 	
 	if ([self isModal]) {
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
@@ -189,9 +194,13 @@
 	[UIView animateWithDuration:0.3 animations:^{
 		[self->_colorPickerContainerView setAlpha:1];
 		[self->_colorPickerPreviewView setPreviewColor:[self startColor]];
-		[self.view setBackgroundColor:[self startColor]];
 	}];
 
+	[self setLayoutConstraints];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[self setLayoutConstraints];
 }
 
@@ -222,7 +231,6 @@
 - (void)updateView {
 	CGRect bounds = [self calculatedBounds];
 	[_colorPickerContainerView setFrame:bounds];
-	[_colorPickerPreviewView setFrame:bounds];
 	_topConstraint.constant = [self navigationHeight];
 	[_colorPickerPreviewView setPreviewColor:[self colorForHSBSliders]];
 }
@@ -252,6 +260,7 @@
 	[(UIVisualEffectView *)_topStack.subviews.firstObject setEffect:[UIBlurEffect effectWithStyle:blurStyle]];
 	[(UIVisualEffectView *)_bottomStack.subviews.firstObject setEffect:[UIBlurEffect effectWithStyle:blurStyle]];
 	[_colorPickerPreviewView setDarkMode:blurStyle == UIBlurEffectStyleDark];
+	[self.navigationController.navigationBar setBarStyle:(blurStyle == UIBlurEffectStyleDark) ? UIBarStyleBlackTranslucent : UIBarStyleDefault];
 }
 
 - (void)setBlurStyle:(UIBlurEffectStyle)blurStyle animated:(BOOL)animated {
@@ -312,7 +321,6 @@
         [self->_colorPickerBlueSlider setColor:color];
 
         [self->_colorPickerPreviewView setPreviewColor:color];
-		[self.view setBackgroundColor:color];
     };
 
     if (animated) 
@@ -463,7 +471,8 @@
 	return NO;
 }
 
-- (void)toggleStyle {
+- (void)toggleStyle:(UIBarButtonItem *)sender {
+	if (sender) sender.title = self->_blurStyle == UIBlurEffectStyleDark ? @"Dark" : @"Light";
 	[self setBlurStyle:(self->_blurStyle == UIBlurEffectStyleDark) ? UIBlurEffectStyleExtraLight : UIBlurEffectStyleDark animated:YES];
 }
 

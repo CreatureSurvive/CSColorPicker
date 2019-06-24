@@ -38,7 +38,7 @@
 - (void)setColorObject:(CSColorObject *)colorObject {
 	_colorObject = colorObject;
 	_colorDisplay.backgroundColor = colorObject.color;
-	self.detailTextLabel.text = colorObject.hexValue;
+	self.detailTextLabel.text = colorObject.displayHexValue;
 }
 
 - (void)setColorObject:(CSColorObject *)colorObject delegate:(id<CSColorPickerDelegate>)delegate {

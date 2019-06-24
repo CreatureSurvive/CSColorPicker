@@ -39,7 +39,7 @@
 - (void)setColorObject:(CSColorObject *)colorObject {
 	_colorObject = colorObject;
 	_gradient.colors = [colorObject gradientCGColors];
-	self.detailTextLabel.text = colorObject.hexValue;
+	self.detailTextLabel.text = colorObject.displayHexValue;
 }
 
 - (void)setColorObject:(CSColorObject *)colorObject delegate:(id<CSColorPickerDelegate>)delegate {

@@ -12,11 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CSColorObject : NSObject
-@property (nonatomic, assign) BOOL isGradient;
-@property (nonatomic, strong) NSString *hexValue;
+@property (nonatomic, assign, readonly) BOOL isGradient;
+@property (nonatomic, strong, readonly) NSString *hexValue;
+@property (nonatomic, strong, readonly) UIColor *color;
+@property (nonatomic, strong, readonly) NSArray<UIColor *> *colors;
 @property (nonatomic, strong) NSString *identifier;
-@property (nonatomic, strong) UIColor *color;
-@property (nonatomic, strong) NSArray<UIColor *> *colors;
 
 + (instancetype)colorObjectWithHex:(NSString *)hex;
 + (instancetype)colorObjectWithColor:(UIColor *)color;
@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)gradientObjectWithColors:(NSArray <UIColor *> *)colors;
 
 - (NSArray<id>*)gradientCGColors;
+- (NSString *)displayHexValue;
 
 - (instancetype)init NS_UNAVAILABLE;
 @end

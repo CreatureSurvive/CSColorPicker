@@ -22,7 +22,7 @@
 		[self addSubview:_previewView];
 		
 		UILabel *topLabel = [self newPreviewLabel];
-		topLabel.font = [UIFont boldSystemFontOfSize:30];
+		topLabel.font = [UIFont systemFontOfSize:40 weight:UIFontWeightBlack];
 		
 		_labelContainer = [[UIStackView alloc] initWithFrame:self.bounds];
 		[_labelContainer setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -116,7 +116,7 @@
 	UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
 	[label setTranslatesAutoresizingMaskIntoConstraints:NO];
 	[label setNumberOfLines:_alphaEnabled ? 11 : 9];
-	[label setFont:[UIFont boldSystemFontOfSize:20]];
+	[label setFont:[UIFont systemFontOfSize:22 weight:UIFontWeightBold]];
 	[label setBackgroundColor:[UIColor clearColor]];
 	[label setTextAlignment:NSTextAlignmentCenter];
 	[label.layer setShadowOffset:CGSizeZero];
