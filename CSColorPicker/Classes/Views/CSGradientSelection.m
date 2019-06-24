@@ -29,11 +29,6 @@
 }
 
 - (void)commonInit {
-    _blurView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
-    _blurView.frame = self.bounds;
-    _blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _blurView.userInteractionEnabled = NO;
-	[self addSubview:_blurView];
 
 	_buttonPadding = 2.5;
 	
@@ -68,11 +63,6 @@
 - (void)setBackgroundColor:(UIColor *)color {
 	[super setBackgroundColor:color];
 	_scrollView.backgroundColor = color;
-}
-
-- (void)setBlurStyle:(UIBlurEffectStyle)style {
-	if (_blurView)
-		[_blurView setEffect:[UIBlurEffect effectWithStyle:style]];
 }
 
 - (void)generateButtons {

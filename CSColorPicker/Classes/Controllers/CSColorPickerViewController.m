@@ -33,7 +33,8 @@
     NSInteger _selectedIndex;
     BOOL _isGradient;
 	BOOL _alphaEnabled;
-	
+	UIStackView *_topStack;
+	UIStackView *_bottomStack;
 }
 
 - (id)initWithColor:(UIColor *)color showingAlpha:(BOOL)alphaEnabled {
@@ -75,66 +76,83 @@
 	
 	// create views
 	CGRect bounds = [self calculatedBounds];
+
 	_colorPickerContainerView = [[UIView alloc] initWithFrame:bounds];
 	_colorPickerContainerView.tag = 199;
 	_colorPickerPreviewView = [[CSColorPickerPreviewView alloc] initWithFrame:bounds alphaEnabled:_alphaEnabled];
 	[_colorPickerContainerView addSubview:_colorPickerPreviewView.labelContainer];
 	
-	_selectedIndex = self.colors.count - 1;
-	_gradientSelection = [[CSGradientSelection alloc] initWithSize:CGSizeZero target:self addAction:@selector(addAction:) removeAction:@selector(removeAction:) selectAction:@selector(selectAction:)];
-	[_gradientSelection setTranslatesAutoresizingMaskIntoConstraints:NO];
-	[_colorPickerContainerView addSubview:_gradientSelection];
+	// top stack
+	_topStack = [[UIStackView alloc] initWithFrame:CGRectZero];
+	[_topStack setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_topStack setAxis:UILayoutConstraintAxisVertical];
+	[_topStack setDistribution:UIStackViewDistributionFillProportionally];
+	[_topStack setAlignment:UIStackViewAlignmentFill];
+	[_colorPickerContainerView addSubview:_topStack];
+	UIVisualEffectView *topBlur = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:self.blurStyle]];
+	topBlur.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	[_topStack addSubview:topBlur];
 	
-	[_gradientSelection addColors:self.colors];
-	
-	//Alpha slider
-	_colorPickerAlphaSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeAlpha label:@"A" startColor:[self startColor]];
-	[_colorPickerAlphaSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
-	[_colorPickerAlphaSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	[_colorPickerContainerView addSubview:_colorPickerAlphaSlider];
-	[_colorPickerAlphaSlider setTranslatesAutoresizingMaskIntoConstraints:NO];
+	// bottom stack
+	_bottomStack = [[UIStackView alloc] initWithFrame:CGRectZero];
+	[_bottomStack setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_bottomStack setAxis:UILayoutConstraintAxisVertical];
+	[_bottomStack setDistribution:UIStackViewDistributionFillProportionally];
+	[_bottomStack setAlignment:UIStackViewAlignmentFill];
+	[_colorPickerContainerView addSubview:_bottomStack];
+	UIVisualEffectView *bottomBlur = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:self.blurStyle]];
+	bottomBlur.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	[_bottomStack addSubview:bottomBlur];
 	
 	//hue slider
 	_colorPickerHueSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeHue label:@"H" startColor:[self startColor]];
 	[_colorPickerHueSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
 	[_colorPickerHueSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	[_colorPickerContainerView addSubview:_colorPickerHueSlider];
-	[_colorPickerHueSlider setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_bottomStack addArrangedSubview:_colorPickerHueSlider];
 	
 	// saturation slider
 	_colorPickerSaturationSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeSaturation label:@"S" startColor:[self startColor]];
 	[_colorPickerSaturationSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
 	[_colorPickerSaturationSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	[_colorPickerContainerView addSubview:_colorPickerSaturationSlider];
-	[_colorPickerSaturationSlider setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_bottomStack addArrangedSubview:_colorPickerSaturationSlider];
 	
 	// brightness slider
 	_colorPickerBrightnessSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeBrightness label:@"B" startColor:[self startColor]];
 	[_colorPickerBrightnessSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
 	[_colorPickerBrightnessSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	[_colorPickerContainerView addSubview:_colorPickerBrightnessSlider];
-	[_colorPickerBrightnessSlider setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_bottomStack addArrangedSubview:_colorPickerBrightnessSlider];
+	
+	//Alpha slider
+	_colorPickerAlphaSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeAlpha label:@"A" startColor:[self startColor]];
+	[_colorPickerAlphaSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
+	[_colorPickerAlphaSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
+	[_bottomStack addArrangedSubview:_colorPickerAlphaSlider];
 	
 	// red slider
 	_colorPickerRedSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeRed label:@"R" startColor:[self startColor]];
 	[_colorPickerRedSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
 	[_colorPickerRedSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	[_colorPickerContainerView addSubview:_colorPickerRedSlider];
-	[_colorPickerRedSlider setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_topStack addArrangedSubview:_colorPickerRedSlider];
 	
 	// green slider
 	_colorPickerGreenSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeGreen label:@"G" startColor:[self startColor]];
 	[_colorPickerGreenSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
 	[_colorPickerGreenSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	[_colorPickerContainerView addSubview:_colorPickerGreenSlider];
-	[_colorPickerGreenSlider setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_topStack addArrangedSubview:_colorPickerGreenSlider];
 	
 	// blue slider
 	_colorPickerBlueSlider = [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeBlue label:@"B" startColor:[self startColor]];
 	[_colorPickerBlueSlider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
 	[_colorPickerBlueSlider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	[_colorPickerContainerView addSubview:_colorPickerBlueSlider];
-	[_colorPickerBlueSlider setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_topStack addArrangedSubview:_colorPickerBlueSlider];
+	
+	// gradient selector
+	_selectedIndex = self.colors.count - 1;
+	_gradientSelection = [[CSGradientSelection alloc] initWithSize:CGSizeZero target:self addAction:@selector(addAction:) removeAction:@selector(removeAction:) selectAction:@selector(selectAction:)];
+	[_gradientSelection setTranslatesAutoresizingMaskIntoConstraints:NO];
+	[_gradientSelection addColors:self.colors];
+	if (_isGradient) [_gradientSelection.heightAnchor constraintEqualToConstant:50.0].active = YES;
+	[_topStack addArrangedSubview:_gradientSelection];
 	
 	[self.view insertSubview:_colorPickerPreviewView atIndex:0];
 	[self.view insertSubview:_colorPickerContainerView atIndex:1];
@@ -186,6 +204,7 @@
 	[coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
 		[self setLayoutConstraints];
 		[self updateView];
+		[self->_colorPickerPreviewView setNeedsDisplay];
 	} completion:nil];
 	
 	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
@@ -230,7 +249,8 @@
 	[_colorPickerRedSlider setBlurStyle:blurStyle];
 	[_colorPickerGreenSlider setBlurStyle:blurStyle];
 	[_colorPickerBlueSlider setBlurStyle:blurStyle];
-	[_gradientSelection setBlurStyle:blurStyle];
+	[(UIVisualEffectView *)_topStack.subviews.firstObject setEffect:[UIBlurEffect effectWithStyle:blurStyle]];
+	[(UIVisualEffectView *)_bottomStack.subviews.firstObject setEffect:[UIBlurEffect effectWithStyle:blurStyle]];
 	[_colorPickerPreviewView setDarkMode:blurStyle == UIBlurEffectStyleDark];
 }
 
@@ -380,6 +400,7 @@
 }
 
 - (void)setLayoutConstraints {
+	
     for (id constraint in _colorPickerContainerView.constraints) {
         [_colorPickerContainerView removeConstraint:constraint];
     }
@@ -394,43 +415,19 @@
 	}
 
     NSArray *constraints = @[
-        // red constraints
-        [NSLayoutConstraint constraintWithItem:_colorPickerRedSlider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeTop multiplier:1 constant:[self navigationHeight]],
-        [NSLayoutConstraint constraintWithItem:_colorPickerRedSlider attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerRedSlider attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:sliderHeight],
-        // green constraints
-        [NSLayoutConstraint constraintWithItem:_colorPickerGreenSlider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_colorPickerRedSlider attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerGreenSlider attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerGreenSlider attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:sliderHeight],
-        // blue constraints
-        [NSLayoutConstraint constraintWithItem:_colorPickerBlueSlider attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_colorPickerGreenSlider attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerBlueSlider attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerBlueSlider attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:sliderHeight],
-        // gradient constraints
-        [NSLayoutConstraint constraintWithItem:_gradientSelection attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_colorPickerBlueSlider attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:_gradientSelection attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_gradientSelection attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:_isGradient ? 50.0 : 0],
-        // alpha constraints
-        [NSLayoutConstraint constraintWithItem:_colorPickerAlphaSlider attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_colorPickerHueSlider attribute:NSLayoutAttributeTop multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerAlphaSlider attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerAlphaSlider attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:_alphaEnabled ? sliderHeight : 0],
-        // hue constraints
-        [NSLayoutConstraint constraintWithItem:_colorPickerHueSlider attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_colorPickerSaturationSlider attribute:NSLayoutAttributeTop multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerHueSlider attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerHueSlider attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:sliderHeight],
-        // saturation constraints
-        [NSLayoutConstraint constraintWithItem:_colorPickerSaturationSlider attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_colorPickerBrightnessSlider attribute:NSLayoutAttributeTop multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerSaturationSlider attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerSaturationSlider attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:sliderHeight],
-        // brightness constraints
-        [NSLayoutConstraint constraintWithItem:_colorPickerBrightnessSlider attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerBrightnessSlider attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
-        [NSLayoutConstraint constraintWithItem:_colorPickerBrightnessSlider attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:sliderHeight],
+		// top stack constraints
+		[NSLayoutConstraint constraintWithItem:_topStack attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeTop multiplier:1 constant:[self navigationHeight]],
+		[NSLayoutConstraint constraintWithItem:_topStack attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
+		[NSLayoutConstraint constraintWithItem:_topStack attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:(sliderHeight * 3) + (_isGradient ? 50 : 0)],
+		// bottom stack constraints
+		[NSLayoutConstraint constraintWithItem:_bottomStack attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeBottom multiplier:1 constant:0],
+		[NSLayoutConstraint constraintWithItem:_bottomStack attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
+		[NSLayoutConstraint constraintWithItem:_bottomStack attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:sliderHeight * (_alphaEnabled ? 4 : 3)],
 		// label constraints
 		[NSLayoutConstraint constraintWithItem:_colorPickerPreviewView.labelContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
 		[NSLayoutConstraint constraintWithItem:_colorPickerPreviewView.labelContainer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_colorPickerContainerView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0],
-		[NSLayoutConstraint constraintWithItem:_colorPickerPreviewView.labelContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:landscape ? _colorPickerContainerView : _gradientSelection attribute:landscape ? NSLayoutAttributeTop : NSLayoutAttributeBottom multiplier:1 constant:landscape ? [self navigationHeight] : 0],
-		[NSLayoutConstraint constraintWithItem:_colorPickerPreviewView.labelContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:landscape ? _colorPickerContainerView : _colorPickerAlphaSlider attribute:landscape ? NSLayoutAttributeBottom : NSLayoutAttributeTop multiplier:1 constant:0]
+		[NSLayoutConstraint constraintWithItem:_colorPickerPreviewView.labelContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:landscape ? _colorPickerContainerView : _topStack attribute:landscape ? NSLayoutAttributeTop : NSLayoutAttributeBottom multiplier:1 constant:landscape ? [self navigationHeight] : 0],
+		[NSLayoutConstraint constraintWithItem:_colorPickerPreviewView.labelContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:landscape ? _colorPickerContainerView : _bottomStack attribute:landscape ? NSLayoutAttributeBottom : NSLayoutAttributeTop multiplier:1 constant:0]
     ];
 
     _topConstraint = constraints.firstObject;

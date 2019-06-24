@@ -16,9 +16,7 @@
 
 @end
 
-@implementation CSColorSlider {
-	UIVisualEffectView *_cellBackgroundBlur;
-}
+@implementation CSColorSlider
 
 - (instancetype)initWithFrame:(CGRect)frame sliderType:(CSColorSliderType)sliderType label:(NSString *)label startColor:(UIColor *)startColor {
     self = [super initWithFrame:frame];
@@ -81,13 +79,6 @@
     [self.sliderValueLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.sliderValueLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:0.5 constant:0]];
     [self addConstraint:[NSLayoutConstraint constraintWithItem:self.sliderValueLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:0.98 constant:0]];
-
-    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
-    _cellBackgroundBlur = [[UIVisualEffectView alloc] initWithEffect:effect];
-    _cellBackgroundBlur.frame = self.bounds;
-    _cellBackgroundBlur.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _cellBackgroundBlur.userInteractionEnabled = NO;
-    [self insertSubview:_cellBackgroundBlur atIndex:0];
 
     self.sliderType = sliderType;
     self.selectedColor = startColor;
@@ -310,8 +301,6 @@
 
 - (void)setBlurStyle:(UIBlurEffectStyle)style {
 	BOOL isDark = (style == UIBlurEffectStyleDark);
-	if (_cellBackgroundBlur)
-		[_cellBackgroundBlur setEffect:[UIBlurEffect effectWithStyle:style]];
 	if (_sliderLabel)
 		[_sliderLabel setTextColor:isDark ? UIColor.lightTextColor : UIColor.darkGrayColor];
 	if (_sliderValueLabel)

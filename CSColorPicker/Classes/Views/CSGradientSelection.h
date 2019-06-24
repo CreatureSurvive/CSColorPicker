@@ -19,6 +19,4 @@
 - (void)removeColorAtIndex:(NSInteger)index;
 - (void)setColor:(UIColor *)color atIndex:(NSInteger)index;
 
-- (void)setBlurStyle:(UIBlurEffectStyle)style;
-
 @end
