@@ -91,6 +91,7 @@
 
     self.sliderType = sliderType;
     self.selectedColor = startColor;
+	self.clipsToBounds = YES;
 
     _colorTrackHeight = (sliderType <= 2) ? 20 : (sliderType > 5) ? 20 : 2;
     [self updateTrackImage];
