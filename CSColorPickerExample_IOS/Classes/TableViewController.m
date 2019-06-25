@@ -61,7 +61,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
 	if ([cell isKindOfClass:[CSColorDisplayCell class]] || [cell isKindOfClass:[CSGradientDisplayCell class]]) {
-		[self.navigationController pushViewController:[(CSColorDisplayCell *)cell colorPicker] animated:YES];
+		CSColorPickerViewController *vc = [(CSColorDisplayCell *)cell colorPicker];
+		vc.showsDarkmodeToggle = YES;
+		[self.navigationController pushViewController:vc animated:YES];
 	}
 }
 

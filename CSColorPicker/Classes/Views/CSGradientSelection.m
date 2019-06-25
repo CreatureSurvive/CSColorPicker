@@ -14,6 +14,7 @@
 	CGFloat _height;
 	CGFloat _spacing;
 	CGFloat _buttonPadding;
+	UIEdgeInsets _gradientInsets;
 }
 
 - (instancetype)initWithSize:(CGSize)size target:(id)target addAction:(SEL)add removeAction:(SEL)remove selectAction:(SEL)select {
@@ -31,15 +32,16 @@
 - (void)commonInit {
 
 	_buttonPadding = 2.5;
+	[self setGradientOnTop:_gradientOnTop];
 	
-	_scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+	_scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height - 15)];
 	_scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	_scrollView.showsVerticalScrollIndicator = NO;
 	_scrollView.showsHorizontalScrollIndicator = NO;
 	_scrollView.hidden = YES;
 
 	_gradient = [CAGradientLayer layer];
-    _gradient.frame = CGRectMake(0, self.bounds.size.height - 15, self.bounds.size.width, 15);
+	_gradient.frame = UIEdgeInsetsInsetRect(self.bounds, _gradientInsets);
 	_gradient.colors = @[(id)UIColor.clearColor.CGColor, (id)UIColor.clearColor.CGColor];
     _gradient.startPoint = CGPointMake(0, 0.5);
     _gradient.endPoint = CGPointMake(1, 0.5);
@@ -49,15 +51,17 @@
 
 	[self addSubview:_scrollView];
 	
-	_height = self.bounds.size.height;
+	_height = self.bounds.size.height - 15;
 	_spacing = 5;
 }
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	_height = self.bounds.size.height;
+	_height = self.bounds.size.height - 15;
 	_scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width, _height);
-	self.gradient.frame = CGRectMake(0, self.bounds.size.height - 15, self.bounds.size.width, 15);
+
+	CGRect f1, f2; CGRectDivide(self.bounds, &f1, &f2, 15, _gradientOnTop ? CGRectMinYEdge : CGRectMaxYEdge);
+	_gradient.frame = f1; _scrollView.frame = f2;
 }
 
 - (void)setBackgroundColor:(UIColor *)color {
@@ -77,8 +81,8 @@
 		CGRect frame = button.frame;
 		frame.origin.x = size + self->_spacing;
 		frame.origin.y = self->_buttonPadding;
-		
 		button.frame = frame;
+		
 		size += button.bounds.size.width + self->_spacing;
 	};
 
@@ -92,10 +96,10 @@
 		addButton([self.class accessoryButtonSpace]);
 	}
 
-	addButton([self.class accessoryButtonWithTitle:@"Add" target:self.target action:self.addAction color:UIColor.whiteColor index:-1]);
+	addButton([self.class accessoryButtonWithTitle:Localize("Add") target:self.target action:self.addAction color:UIColor.whiteColor index:-1]);
 
 	if (self.colors.count > 2) {
-		addButton([self.class accessoryButtonWithTitle:@"Remove" target:self.target action:self.removeAction color:UIColor.whiteColor index:-1]);
+		addButton([self.class accessoryButtonWithTitle:Localize("Remove") target:self.target action:self.removeAction color:UIColor.whiteColor index:-1]);
 	}
 
 	_scrollView.contentSize = CGSizeMake(size + _spacing, _height);

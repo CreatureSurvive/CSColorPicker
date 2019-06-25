@@ -84,6 +84,7 @@
 	}
 	
 	CSColorPickerViewController *vc = [[CSColorPickerViewController alloc] initWithColorObject:colorObject showingAlpha:NO];
+	vc.showsDarkmodeToggle = YES;
 	vc.delegate = self;
 	
 	return vc;

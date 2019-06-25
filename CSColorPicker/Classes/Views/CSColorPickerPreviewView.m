@@ -40,10 +40,8 @@
 		[_colorLabelStack addArrangedSubview:[self newPreviewLabel]];
 		[_colorLabelStack addArrangedSubview:[UIView new]];
 		
-		[_labelContainer addArrangedSubview:[UIView new]];
 		[_labelContainer addArrangedSubview:topLabel];
 		[_labelContainer addArrangedSubview:_colorLabelStack];
-//		[_labelContainer addArrangedSubview:[UIView new]];
     }
     return self;
 }
@@ -86,7 +84,7 @@
 	UIColor *legibilityTint = (!color.cscp_light && color.cscp_alpha > 0.5) ? UIColor.whiteColor : UIColor.blackColor;
 	UIColor *shadowColor = legibilityTint == UIColor.blackColor ? UIColor.whiteColor : UIColor.blackColor;
 	
-	UILabel *rgb = _colorLabelStack.arrangedSubviews[1], *hsb = _colorLabelStack.arrangedSubviews[2], *hex = _labelContainer.arrangedSubviews[1];
+	UILabel *rgb = _colorLabelStack.arrangedSubviews[1], *hsb = _colorLabelStack.arrangedSubviews[2], *hex = _labelContainer.arrangedSubviews[0];
 	[rgb setTextColor:legibilityTint];
 	[hsb setTextColor:legibilityTint];
 	[hex setTextColor:legibilityTint];
@@ -100,7 +98,7 @@
 	[color getHue:&h saturation:&s brightness:&b alpha:&a];
 	[color getRed:&r green:&g blue:&bb alpha:nil];
 	
-	UILabel *rgb = _colorLabelStack.arrangedSubviews[1], *hsb = _colorLabelStack.arrangedSubviews[2], *hex = _labelContainer.arrangedSubviews[1];
+	UILabel *rgb = _colorLabelStack.arrangedSubviews[1], *hsb = _colorLabelStack.arrangedSubviews[2], *hex = _labelContainer.arrangedSubviews[0];
 	hex.text = [NSString stringWithFormat:@"#%@", [color cscp_hexString]];
 	if (_alphaEnabled) {
 		rgb.text = [NSString stringWithFormat:@"R: %.f\nG: %.f\nB: %.f\nA: %.f", r * 255, g * 255, bb * 255, a * 100];

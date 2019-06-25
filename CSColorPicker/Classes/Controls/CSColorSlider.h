@@ -20,15 +20,18 @@ typedef NSUInteger CSColorSliderType;
 
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) UIColor *maxColor;
+@property (nonatomic, strong) UIColor *minColor;
 @property (nonatomic, strong) UIColor *selectedColor;
 
 @property (nonatomic, strong) UILabel *sliderLabel;
 @property (nonatomic, assign) CSColorSliderType sliderType;
 
 @property (nonatomic, assign) NSUInteger colorTrackHeight;
+@property (nonatomic, assign) NSInteger lastValue;
 
 - (instancetype)initWithFrame:(CGRect)frame sliderType:(CSColorSliderType)sliderType label:(NSString *)label startColor:(UIColor *)startColor;
 - (void)updateTrackImage;
+- (float)colorMaxValue;
 
 - (void)setBlurStyle:(UIBlurEffectStyle)style;
 

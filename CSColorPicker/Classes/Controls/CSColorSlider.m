@@ -4,14 +4,12 @@
 //
 
 #import "CSColorSlider.h"
+#import "UIImage+CSColorPicker_Internal.h"
 
 @interface CSColorSlider ()
 
-
 @property (nonatomic, strong) UIImageView *colorTrackImageView;
-
 @property (nonatomic, strong) UILabel *sliderValueLabel;
-
 @property (nonatomic, strong) UIImage *currentTrackImage;
 
 @end
@@ -41,18 +39,18 @@
     [self sendSubviewToBack:_colorTrackImageView];
 
     // set clear track images to set margins on either side for labels
-    UIImage *sliderValueImageRight = [self imageWithColor:[UIColor clearColor] size:CGSizeMake(29, 1)];
-    UIImage *sliderValueImageLeft = [self imageWithColor:[UIColor clearColor] size:CGSizeMake(29, 1)];
+    UIImage *sliderValueImageRight = [UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(29, 1)];
+    UIImage *sliderValueImageLeft = [UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(29, 1)];
 
     [self setMaximumValueImage:sliderValueImageRight];
     [self setMinimumValueImage:sliderValueImageLeft];
 
     // set thumb image
-    [self setThumbImage:[self imageWithColor:[UIColor lightGrayColor] size:CGSizeMake(5, 30)] forState:UIControlStateNormal];
+    [self setThumbImage:[UIImage imageWithColor:[UIColor lightGrayColor] size:CGSizeMake(5, 28)] forState:UIControlStateNormal];
 
     // set min/max thumb images for label margins
-    [super setMinimumTrackImage:[self imageWithColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
-    [super setMaximumTrackImage:[self imageWithColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+    [super setMinimumTrackImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
+    [super setMaximumTrackImage:[UIImage imageWithColor:[UIColor clearColor] size:CGSizeMake(1, 1)] forState:UIControlStateNormal];
 
     // set the slider label
     self.sliderLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -84,7 +82,7 @@
     self.selectedColor = startColor;
 	self.clipsToBounds = YES;
 
-    _colorTrackHeight = (sliderType <= 2) ? 20 : (sliderType > 5) ? 20 : 2;
+	_colorTrackHeight = 18;// (sliderType <= 2) ? 20 : (sliderType > 5) ? 20 : 8;
     [self updateTrackImage];
     [self setColor:startColor];
 }
@@ -212,23 +210,38 @@
     [self updateValueLabel];
 }
 
-- (UIColor *)getMaxColor {
+- (UIColor *)getMinMaxColor:(BOOL)max {
     switch (self.sliderType) {
         case CSColorSliderTypeBrightness: {
-            CGFloat h,s,b = 1,a;
+            CGFloat h,s,b = max,a;
             [self.selectedColor getHue:&h saturation:&s brightness:nil alpha:&a];
             return [UIColor colorWithHue:h saturation:s brightness:b alpha:a];
         }
         case CSColorSliderTypeSaturation: {
-            CGFloat h,s = 1,b,a;
+            CGFloat h,s = max,b,a;
             [self.selectedColor getHue:&h saturation:nil brightness:&b alpha:&a];
             return [UIColor colorWithHue:h saturation:s brightness:b alpha:a];
         }
         case CSColorSliderTypeAlpha: {
-            CGFloat h,s,b,a = 1;
+            CGFloat h,s,b,a = max;
             [self.selectedColor getHue:&h saturation:&s brightness:&b alpha:nil];
             return [UIColor colorWithHue:h saturation:s brightness:b alpha:a];
         }
+		case CSColorSliderTypeRed: {
+			CGFloat r = max,g,b,a;
+			[self.selectedColor getRed:nil green:&g blue:&b alpha:&a];
+			return [UIColor colorWithRed:r green:g blue:b alpha:a];
+		}
+		case CSColorSliderTypeGreen: {
+			CGFloat r,g = max,b,a;
+			[self.selectedColor getRed:&r green:nil blue:&b alpha:&a];
+			return [UIColor colorWithRed:r green:g blue:b alpha:a];
+		}
+		case CSColorSliderTypeBlue: {
+			CGFloat r,g,b = max,a;
+			[self.selectedColor getRed:&r green:&g blue:nil alpha:&a];
+			return [UIColor colorWithRed:r green:g blue:b alpha:a];
+		}
         default: {
             return self.selectedColor;
         }
@@ -265,34 +278,42 @@
 - (void)updateTrackImage {
     switch (self.sliderType) {
         case CSColorSliderTypeHue: {
-            self.currentTrackImage = [self hueTrackImage];
+            if (!self.currentTrackImage) self.currentTrackImage = [UIImage hueTrackImage];
         } break;
         case CSColorSliderTypeSaturation: {
-            UIColor *maxColor = [self getMaxColor];
+            UIColor *maxColor = [self getMinMaxColor:YES];
             BOOL maxChanged = (self.maxColor != maxColor);
-            if ((self.maxColor = maxColor) && (!self.currentTrackImage || maxChanged)) self.currentTrackImage = [self imageWithGradientStart:[UIColor whiteColor] end:self.maxColor size:CGSizeMake(512, 1)];
+            if ((self.maxColor = maxColor) && (!self.currentTrackImage || maxChanged)) self.currentTrackImage = [UIImage imageWithGradientStart:[UIColor whiteColor] end:maxColor size:CGSizeMake(2, 1)];
         } break;
         case CSColorSliderTypeBrightness: {
-            UIColor *maxColor = [self getMaxColor];
+            UIColor *maxColor = [self getMinMaxColor:YES];
             BOOL maxChanged = (self.maxColor != maxColor);
-            if ((self.maxColor = maxColor) && (!self.currentTrackImage || maxChanged)) self.currentTrackImage = [self imageWithGradientStart:[UIColor blackColor] end:self.maxColor size:CGSizeMake(512, 1)];
+            if ((self.maxColor = maxColor) && (!self.currentTrackImage || maxChanged)) self.currentTrackImage = [UIImage imageWithGradientStart:[UIColor blackColor] end:maxColor size:CGSizeMake(2, 1)];
         } break;
         case CSColorSliderTypeAlpha: {
-            UIColor *maxColor = [self getMaxColor];
+            UIColor *maxColor = [self getMinMaxColor:YES];
             BOOL maxChanged = (self.maxColor != maxColor);
-            if ((self.maxColor = maxColor) && (!self.currentTrackImage || maxChanged)) self.currentTrackImage = [self imageWithGradientStart:[UIColor clearColor] end:self.maxColor size:CGSizeMake(512, 1)];
+            if ((self.maxColor = maxColor) && (!self.currentTrackImage || maxChanged)) self.currentTrackImage = [UIImage imageWithGradientStart:[UIColor clearColor] end:maxColor size:CGSizeMake(2, 1)];
         } break;
         case CSColorSliderTypeRed: {
-            if (!self.currentTrackImage) self.currentTrackImage = [self imageWithColor:[UIColor redColor] size:CGSizeMake(1, 1)];
+			UIColor *minColor = [self getMinMaxColor:NO], *maxColor = [self getMinMaxColor:YES];
+			BOOL changed = (self.maxColor != maxColor || self.minColor != minColor);
+			if ((self.maxColor = maxColor)&&(self.minColor = minColor) && (!self.currentTrackImage || changed)) self.currentTrackImage = [UIImage imageWithGradientStart:minColor end:maxColor size:CGSizeMake(2, 1)];
         } break;
         case CSColorSliderTypeGreen: {
-            if (!self.currentTrackImage) self.currentTrackImage = [self imageWithColor:[UIColor greenColor] size:CGSizeMake(1, 1)];
+			UIColor *minColor = [self getMinMaxColor:NO], *maxColor = [self getMinMaxColor:YES];
+			BOOL changed = (self.maxColor != maxColor || self.minColor != minColor);
+			if ((self.maxColor = maxColor)&&(self.minColor = minColor) && (!self.currentTrackImage || changed)) self.currentTrackImage = [UIImage imageWithGradientStart:minColor end:maxColor size:CGSizeMake(2, 1)];
         } break;
         case CSColorSliderTypeBlue: {
-            if (!self.currentTrackImage) self.currentTrackImage = [self imageWithColor:[UIColor blueColor] size:CGSizeMake(1, 1)];
+			UIColor *minColor = [self getMinMaxColor:NO], *maxColor = [self getMinMaxColor:YES];
+			BOOL changed = (self.maxColor != maxColor || self.minColor != minColor);
+			if ((self.maxColor = maxColor)&&(self.minColor = minColor) && (!self.currentTrackImage || changed)) self.currentTrackImage = [UIImage imageWithGradientStart:minColor end:maxColor size:CGSizeMake(2, 1)];
         } break;
         default: {
-            if (!self.currentTrackImage) self.currentTrackImage = [self imageWithColor:[UIColor redColor] size:CGSizeMake(1, 1)];
+			UIColor *maxColor = [self getMinMaxColor:YES];
+			BOOL changed = (self.maxColor != maxColor);
+			if ((self.maxColor = maxColor) && (!self.currentTrackImage || changed)) self.currentTrackImage = [UIImage imageWithColor:maxColor size:CGSizeMake(1, 1)];
         } break;
     }
 
@@ -305,72 +326,6 @@
 		[_sliderLabel setTextColor:isDark ? UIColor.lightTextColor : UIColor.darkGrayColor];
 	if (_sliderValueLabel)
 		[_sliderValueLabel setTextColor:isDark ? UIColor.lightTextColor : UIColor.darkGrayColor];
-}
-
-- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size {
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return img;
-}
-
-- (UIImage *)imageWithGradientStart:(UIColor *)start end:(UIColor *)end size:(CGSize)size {
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-
-    //make gradient
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = rect;
-    gradient.startPoint = CGPointMake(0, 0.5);
-    gradient.endPoint = CGPointMake(1, 0.5);
-    gradient.colors = @[(id)start.CGColor, (id)end.CGColor];
-
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextFillRect(context, rect);
-    [gradient renderInContext:UIGraphicsGetCurrentContext()];
-
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return img;
-}
-
-- (UIImage *)hueTrackImage {
-    CGRect rect = CGRectMake(0, 0, 512, 1);
-
-    NSMutableArray *colors = [NSMutableArray array];
-    for (NSInteger deg = 0; deg <= 360; deg += 5) {
-
-        UIColor *color;
-        color = [UIColor colorWithHue:1.0f * deg / 360.0f
-                           saturation:1.0f
-                           brightness:1.0f
-                                alpha:1.0f];
-        [colors addObject:(__bridge id)[color CGColor]];
-    }
-
-    //make gradient
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = rect;
-    gradient.startPoint = CGPointMake(0, 0.5);
-    gradient.endPoint = CGPointMake(1, 0.5);
-    gradient.colors = colors;
-
-    UIGraphicsBeginImageContext(rect.size);
-
-    [gradient renderInContext:UIGraphicsGetCurrentContext()];
-
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return img;
 }
 
 @end

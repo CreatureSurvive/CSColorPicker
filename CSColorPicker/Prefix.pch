@@ -14,3 +14,9 @@
 	#define CSError(format, ...)
 	#define CSWarn(format, ...)
 #endif
+
+#import <Foundation/Foundation.h>
+
+NS_INLINE NSString *Localize(const char *key) {
+	return NSLocalizedStringFromTableInBundle([NSString stringWithUTF8String:key], @"Localizable", [NSBundle bundleForClass:NSClassFromString(@"CSColorObject")], nil);
+}

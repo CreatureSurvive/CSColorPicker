@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  CSColorPicker
+
+  Created by Dana Buehre on 6/24/19.
+  Copyright © 2019 CreatureCoding. All rights reserved.
+*/
+ALERT_CANCEL     = "Cancel";
+ALERT_COPY       = "Copy Color";
+ALERT_MESSAGE    = "supported formats: 'RGB' 'ARGB' 'RRGGBB' 'AARRGGBB' 'RGB:0.25' 'RRGGBB:0.25'";
+ALERT_PASTEBOARD = "Set From PasteBoard";
+ALERT_SET        = "Set Color";
+ALERT_TITLE      = "Set Hex Color";
+LIGHT 			 = "Light";
+DARK             = "Dark";
+ADD				 = "Add";
+REMOVE			 = "Remove";
+HEX				 = "#";
+H				 = "H";
+S				 = "S";
+B				 = "B";
+A				 = "A";
+R				 = "R";
+G				 = "G";

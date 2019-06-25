@@ -40,6 +40,13 @@
 		B8C9436222BF67E7002C39C5 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9436122BF67E7002C39C5 /* TableViewController.m */; };
 		B8C9436522BF7E45002C39C5 /* CSGradientDisplayCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9436322BF7E45002C39C5 /* CSGradientDisplayCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B8C9436622BF7E45002C39C5 /* CSGradientDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9436422BF7E45002C39C5 /* CSGradientDisplayCell.m */; };
+		B8C9436922C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9436722C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.h */; };
+		B8C9436A22C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9436822C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.m */; };
+		B8C9438422C1703B002C39C5 /* UIColor+CSColorPicker_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9438222C1703B002C39C5 /* UIColor+CSColorPicker_Internal.h */; };
+		B8C9438522C1703B002C39C5 /* UIColor+CSColorPicker_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9438322C1703B002C39C5 /* UIColor+CSColorPicker_Internal.m */; };
+		B8C9438822C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9438622C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h */; };
+		B8C9438922C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9438722C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m */; };
+		B8C9438C22C1A837002C39C5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8C9438E22C1A837002C39C5 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +112,13 @@
 		B8C9436122BF67E7002C39C5 /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		B8C9436322BF7E45002C39C5 /* CSGradientDisplayCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSGradientDisplayCell.h; sourceTree = "<group>"; };
 		B8C9436422BF7E45002C39C5 /* CSGradientDisplayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSGradientDisplayCell.m; sourceTree = "<group>"; };
+		B8C9436722C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+CSColorPicker_Internal.h"; sourceTree = "<group>"; };
+		B8C9436822C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CSColorPicker_Internal.m"; sourceTree = "<group>"; };
+		B8C9438222C1703B002C39C5 /* UIColor+CSColorPicker_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+CSColorPicker_Internal.h"; sourceTree = "<group>"; };
+		B8C9438322C1703B002C39C5 /* UIColor+CSColorPicker_Internal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CSColorPicker_Internal.m"; sourceTree = "<group>"; };
+		B8C9438622C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CSColorPicker_Internal.h"; sourceTree = "<group>"; };
+		B8C9438722C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CSColorPicker_Internal.m"; sourceTree = "<group>"; };
+		B8C9438D22C1A837002C39C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +167,7 @@
 				B831F7F422BD7FB500812690 /* Prefix.pch */,
 				B831F7E822BD7EEF00812690 /* CSColorPicker.h */,
 				B831F7E922BD7EEF00812690 /* Info.plist */,
+				B8C9438E22C1A837002C39C5 /* Localizable.strings */,
 				B831F7F822BD804400812690 /* Classes */,
 			);
 			path = CSColorPicker;
@@ -178,6 +193,7 @@
 				B831F7FB22BD804400812690 /* NSString+CSColorPicker.m */,
 				B831F7FC22BD804400812690 /* UIColor+CSColorPicker.h */,
 				B831F7FD22BD804400812690 /* UIColor+CSColorPicker.m */,
+				B8C9436B22C13B53002C39C5 /* Internal */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -267,6 +283,19 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		B8C9436B22C13B53002C39C5 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				B8C9436722C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.h */,
+				B8C9436822C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.m */,
+				B8C9438222C1703B002C39C5 /* UIColor+CSColorPicker_Internal.h */,
+				B8C9438322C1703B002C39C5 /* UIColor+CSColorPicker_Internal.m */,
+				B8C9438622C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h */,
+				B8C9438722C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -276,9 +305,12 @@
 			files = (
 				B831F81B22BD804400812690 /* CSColorPickerViewController.h in Headers */,
 				B831F81522BD804400812690 /* UIColor+CSColorPicker.h in Headers */,
+				B8C9438422C1703B002C39C5 /* UIColor+CSColorPicker_Internal.h in Headers */,
 				B8C9436522BF7E45002C39C5 /* CSGradientDisplayCell.h in Headers */,
 				B831F7EA22BD7EEF00812690 /* CSColorPicker.h in Headers */,
 				B831F86122BEF99100812690 /* CSColorPickerDelegate.h in Headers */,
+				B8C9438822C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h in Headers */,
+				B8C9436922C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.h in Headers */,
 				B831F85E22BEE33100812690 /* CSColorObject.h in Headers */,
 				B8C9435F22BF6175002C39C5 /* CSColorCellObject.h in Headers */,
 				B831F81322BD804400812690 /* NSString+CSColorPicker.h in Headers */,
@@ -372,6 +404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B831F7F622BD7FB600812690 /* LICENSE in Resources */,
+				B8C9438C22C1A837002C39C5 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,7 +427,10 @@
 			files = (
 				B831F85F22BEE33100812690 /* CSColorObject.m in Sources */,
 				B831F81C22BD804400812690 /* CSColorPickerViewController.m in Sources */,
+				B8C9436A22C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.m in Sources */,
+				B8C9438922C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m in Sources */,
 				B831F82622BD804400812690 /* CSGradientSelection.m in Sources */,
+				B8C9438522C1703B002C39C5 /* UIColor+CSColorPicker_Internal.m in Sources */,
 				B831F81422BD804400812690 /* NSString+CSColorPicker.m in Sources */,
 				B831F81622BD804400812690 /* UIColor+CSColorPicker.m in Sources */,
 				B831F81E22BD804400812690 /* CSColorSlider.m in Sources */,
@@ -440,6 +476,14 @@
 				B831F87422BF44B900812690 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B8C9438E22C1A837002C39C5 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B8C9438D22C1A837002C39C5 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -582,6 +626,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CSColorPicker/Prefix.pch;
 				INFOPLIST_FILE = CSColorPicker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -614,6 +660,8 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CSColorPicker/Prefix.pch;
 				INFOPLIST_FILE = CSColorPicker/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -636,7 +684,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RUMWXF5QY3;
 				INFOPLIST_FILE = CSColorPickerExample_IOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -654,7 +702,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RUMWXF5QY3;
 				INFOPLIST_FILE = CSColorPickerExample_IOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

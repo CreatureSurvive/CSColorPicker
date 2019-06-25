@@ -11,6 +11,7 @@
 @property(nonatomic, retain, readonly) NSMutableArray<UIColor *> *colors;
 @property(nonatomic, retain, readonly) NSMutableArray<UIButton *> *buttons;
 @property(nonatomic, retain, readonly) CAGradientLayer *gradient;
+@property(nonatomic, assign) BOOL gradientOnTop;
 
 - (instancetype)initWithSize:(CGSize)size target:(id)target addAction:(SEL)add removeAction:(SEL)remove selectAction:(SEL)select;
 
