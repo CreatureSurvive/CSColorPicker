@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (CSColorPicker_Internal)
 
-- (CGFloat)navigationHeight;
+- (CGFloat)navigationHeightWithStatusbar:(BOOL)withStatusbar;
 - (BOOL)isLandscape;
 - (BOOL)isModal;
 

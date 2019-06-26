@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B822D3FA22C3E63F00CE6644 /* CSIndexedButton.h in Headers */ = {isa = PBXBuildFile; fileRef = B822D3F822C3E63F00CE6644 /* CSIndexedButton.h */; };
+		B822D3FB22C3E63F00CE6644 /* CSIndexedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B822D3F922C3E63F00CE6644 /* CSIndexedButton.m */; };
+		B822D3FE22C418F400CE6644 /* UIView+CSColorPicker_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B822D3FC22C418F400CE6644 /* UIView+CSColorPicker_Internal.h */; };
+		B822D3FF22C418F400CE6644 /* UIView+CSColorPicker_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = B822D3FD22C418F400CE6644 /* UIView+CSColorPicker_Internal.m */; };
 		B831F7EA22BD7EEF00812690 /* CSColorPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F7E822BD7EEF00812690 /* CSColorPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B831F7F622BD7FB600812690 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = B831F7F322BD7FB500812690 /* LICENSE */; };
 		B831F7F722BD7FB600812690 /* Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = B831F7F422BD7FB500812690 /* Prefix.pch */; };
@@ -20,8 +24,8 @@
 		B831F81E22BD804400812690 /* CSColorSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F80822BD804400812690 /* CSColorSlider.m */; };
 		B831F82322BD804400812690 /* CSColorPickerPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F80F22BD804400812690 /* CSColorPickerPreviewView.h */; };
 		B831F82422BD804400812690 /* CSColorPickerPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F81022BD804400812690 /* CSColorPickerPreviewView.m */; };
-		B831F82522BD804400812690 /* CSGradientSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F81122BD804400812690 /* CSGradientSelection.h */; };
-		B831F82622BD804400812690 /* CSGradientSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F81222BD804400812690 /* CSGradientSelection.m */; };
+		B831F82522BD804400812690 /* CSGradientSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F81122BD804400812690 /* CSGradientSelector.h */; };
+		B831F82622BD804400812690 /* CSGradientSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F81222BD804400812690 /* CSGradientSelector.m */; };
 		B831F85422BED3E800812690 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B831F85322BED3E800812690 /* UIKit.framework */; };
 		B831F85E22BEE33100812690 /* CSColorObject.h in Headers */ = {isa = PBXBuildFile; fileRef = B831F85C22BEE33000812690 /* CSColorObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B831F85F22BEE33100812690 /* CSColorObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F85D22BEE33000812690 /* CSColorObject.m */; };
@@ -34,6 +38,9 @@
 		B831F87822BF44B900812690 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B831F87722BF44B900812690 /* main.m */; };
 		B831F87C22BF452B00812690 /* CSColorPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B831F7E522BD7EEF00812690 /* CSColorPicker.framework */; };
 		B831F87E22BF464E00812690 /* CSColorPicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B831F7E522BD7EEF00812690 /* CSColorPicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B8B194F122C35F8600EAE13D /* CSColorSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = B8B194EF22C35F8600EAE13D /* CSColorSelector.h */; };
+		B8B194F222C35F8600EAE13D /* CSColorSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = B8B194F022C35F8600EAE13D /* CSColorSelector.m */; };
+		B8B194F422C3B71800EAE13D /* assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8B194F322C3B71800EAE13D /* assets.xcassets */; };
 		B8C9435C22BF5D05002C39C5 /* CSColorDisplayCell.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9435A22BF5D05002C39C5 /* CSColorDisplayCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B8C9435D22BF5D05002C39C5 /* CSColorDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9435B22BF5D05002C39C5 /* CSColorDisplayCell.m */; };
 		B8C9435F22BF6175002C39C5 /* CSColorCellObject.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9435E22BF60F8002C39C5 /* CSColorCellObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,6 +54,8 @@
 		B8C9438822C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9438622C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h */; };
 		B8C9438922C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9438722C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m */; };
 		B8C9438C22C1A837002C39C5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8C9438E22C1A837002C39C5 /* Localizable.strings */; };
+		B8C9439422C2F307002C39C5 /* CSColorObjectManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B8C9439222C2F307002C39C5 /* CSColorObjectManager.h */; };
+		B8C9439522C2F307002C39C5 /* CSColorObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B8C9439322C2F307002C39C5 /* CSColorObjectManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +83,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B822D3F822C3E63F00CE6644 /* CSIndexedButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSIndexedButton.h; sourceTree = "<group>"; };
+		B822D3F922C3E63F00CE6644 /* CSIndexedButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSIndexedButton.m; sourceTree = "<group>"; };
+		B822D3FC22C418F400CE6644 /* UIView+CSColorPicker_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+CSColorPicker_Internal.h"; sourceTree = "<group>"; };
+		B822D3FD22C418F400CE6644 /* UIView+CSColorPicker_Internal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+CSColorPicker_Internal.m"; sourceTree = "<group>"; };
 		B831F7E522BD7EEF00812690 /* CSColorPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CSColorPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B831F7E822BD7EEF00812690 /* CSColorPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorPicker.h; sourceTree = "<group>"; };
 		B831F7E922BD7EEF00812690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,8 +102,8 @@
 		B831F80822BD804400812690 /* CSColorSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorSlider.m; sourceTree = "<group>"; };
 		B831F80F22BD804400812690 /* CSColorPickerPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColorPickerPreviewView.h; sourceTree = "<group>"; };
 		B831F81022BD804400812690 /* CSColorPickerPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorPickerPreviewView.m; sourceTree = "<group>"; };
-		B831F81122BD804400812690 /* CSGradientSelection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSGradientSelection.h; sourceTree = "<group>"; };
-		B831F81222BD804400812690 /* CSGradientSelection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSGradientSelection.m; sourceTree = "<group>"; };
+		B831F81122BD804400812690 /* CSGradientSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSGradientSelector.h; sourceTree = "<group>"; };
+		B831F81222BD804400812690 /* CSGradientSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSGradientSelector.m; sourceTree = "<group>"; };
 		B831F85322BED3E800812690 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B831F85C22BEE33000812690 /* CSColorObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColorObject.h; sourceTree = "<group>"; };
 		B831F85D22BEE33000812690 /* CSColorObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSColorObject.m; sourceTree = "<group>"; };
@@ -105,6 +118,9 @@
 		B831F87422BF44B900812690 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B831F87622BF44B900812690 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B831F87722BF44B900812690 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B8B194EF22C35F8600EAE13D /* CSColorSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorSelector.h; sourceTree = "<group>"; };
+		B8B194F022C35F8600EAE13D /* CSColorSelector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSColorSelector.m; sourceTree = "<group>"; };
+		B8B194F322C3B71800EAE13D /* assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = assets.xcassets; sourceTree = "<group>"; };
 		B8C9435A22BF5D05002C39C5 /* CSColorDisplayCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorDisplayCell.h; sourceTree = "<group>"; };
 		B8C9435B22BF5D05002C39C5 /* CSColorDisplayCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSColorDisplayCell.m; sourceTree = "<group>"; };
 		B8C9435E22BF60F8002C39C5 /* CSColorCellObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorCellObject.h; sourceTree = "<group>"; };
@@ -119,6 +135,8 @@
 		B8C9438622C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+CSColorPicker_Internal.h"; sourceTree = "<group>"; };
 		B8C9438722C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+CSColorPicker_Internal.m"; sourceTree = "<group>"; };
 		B8C9438D22C1A837002C39C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B8C9439222C2F307002C39C5 /* CSColorObjectManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSColorObjectManager.h; sourceTree = "<group>"; };
+		B8C9439322C2F307002C39C5 /* CSColorObjectManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSColorObjectManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +187,7 @@
 				B831F7E922BD7EEF00812690 /* Info.plist */,
 				B8C9438E22C1A837002C39C5 /* Localizable.strings */,
 				B831F7F822BD804400812690 /* Classes */,
+				B8B194F322C3B71800EAE13D /* assets.xcassets */,
 			);
 			path = CSColorPicker;
 			sourceTree = "<group>";
@@ -212,6 +231,8 @@
 			children = (
 				B831F80722BD804400812690 /* CSColorSlider.h */,
 				B831F80822BD804400812690 /* CSColorSlider.m */,
+				B822D3F822C3E63F00CE6644 /* CSIndexedButton.h */,
+				B822D3F922C3E63F00CE6644 /* CSIndexedButton.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -221,8 +242,10 @@
 			children = (
 				B831F80F22BD804400812690 /* CSColorPickerPreviewView.h */,
 				B831F81022BD804400812690 /* CSColorPickerPreviewView.m */,
-				B831F81122BD804400812690 /* CSGradientSelection.h */,
-				B831F81222BD804400812690 /* CSGradientSelection.m */,
+				B831F81122BD804400812690 /* CSGradientSelector.h */,
+				B831F81222BD804400812690 /* CSGradientSelector.m */,
+				B8B194EF22C35F8600EAE13D /* CSColorSelector.h */,
+				B8B194F022C35F8600EAE13D /* CSColorSelector.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -242,6 +265,8 @@
 				B831F85D22BEE33000812690 /* CSColorObject.m */,
 				B8C9435E22BF60F8002C39C5 /* CSColorCellObject.h */,
 				B831F86022BEF80600812690 /* CSColorPickerDelegate.h */,
+				B8C9439222C2F307002C39C5 /* CSColorObjectManager.h */,
+				B8C9439322C2F307002C39C5 /* CSColorObjectManager.m */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -292,6 +317,8 @@
 				B8C9438322C1703B002C39C5 /* UIColor+CSColorPicker_Internal.m */,
 				B8C9438622C17129002C39C5 /* UIViewController+CSColorPicker_Internal.h */,
 				B8C9438722C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m */,
+				B822D3FC22C418F400CE6644 /* UIView+CSColorPicker_Internal.h */,
+				B822D3FD22C418F400CE6644 /* UIView+CSColorPicker_Internal.m */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -313,11 +340,15 @@
 				B8C9436922C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.h in Headers */,
 				B831F85E22BEE33100812690 /* CSColorObject.h in Headers */,
 				B8C9435F22BF6175002C39C5 /* CSColorCellObject.h in Headers */,
+				B8B194F122C35F8600EAE13D /* CSColorSelector.h in Headers */,
 				B831F81322BD804400812690 /* NSString+CSColorPicker.h in Headers */,
 				B831F81D22BD804400812690 /* CSColorSlider.h in Headers */,
 				B831F7F722BD7FB600812690 /* Prefix.pch in Headers */,
 				B831F82322BD804400812690 /* CSColorPickerPreviewView.h in Headers */,
-				B831F82522BD804400812690 /* CSGradientSelection.h in Headers */,
+				B822D3FA22C3E63F00CE6644 /* CSIndexedButton.h in Headers */,
+				B822D3FE22C418F400CE6644 /* UIView+CSColorPicker_Internal.h in Headers */,
+				B831F82522BD804400812690 /* CSGradientSelector.h in Headers */,
+				B8C9439422C2F307002C39C5 /* CSColorObjectManager.h in Headers */,
 				B8C9435C22BF5D05002C39C5 /* CSColorDisplayCell.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +436,7 @@
 			files = (
 				B831F7F622BD7FB600812690 /* LICENSE in Resources */,
 				B8C9438C22C1A837002C39C5 /* Localizable.strings in Resources */,
+				B8B194F422C3B71800EAE13D /* assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,12 +461,16 @@
 				B831F81C22BD804400812690 /* CSColorPickerViewController.m in Sources */,
 				B8C9436A22C13B4A002C39C5 /* UIImage+CSColorPicker_Internal.m in Sources */,
 				B8C9438922C17129002C39C5 /* UIViewController+CSColorPicker_Internal.m in Sources */,
-				B831F82622BD804400812690 /* CSGradientSelection.m in Sources */,
+				B831F82622BD804400812690 /* CSGradientSelector.m in Sources */,
 				B8C9438522C1703B002C39C5 /* UIColor+CSColorPicker_Internal.m in Sources */,
 				B831F81422BD804400812690 /* NSString+CSColorPicker.m in Sources */,
+				B822D3FB22C3E63F00CE6644 /* CSIndexedButton.m in Sources */,
 				B831F81622BD804400812690 /* UIColor+CSColorPicker.m in Sources */,
+				B8C9439522C2F307002C39C5 /* CSColorObjectManager.m in Sources */,
 				B831F81E22BD804400812690 /* CSColorSlider.m in Sources */,
 				B8C9435D22BF5D05002C39C5 /* CSColorDisplayCell.m in Sources */,
+				B8B194F222C35F8600EAE13D /* CSColorSelector.m in Sources */,
+				B822D3FF22C418F400CE6644 /* UIView+CSColorPicker_Internal.m in Sources */,
 				B831F82422BD804400812690 /* CSColorPickerPreviewView.m in Sources */,
 				B8C9436622BF7E45002C39C5 /* CSGradientDisplayCell.m in Sources */,
 			);
@@ -683,6 +719,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RUMWXF5QY3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CSColorPickerExample_IOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -701,6 +741,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RUMWXF5QY3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CSColorPickerExample_IOS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isGradient;
 @property (nonatomic, strong, readonly) NSString *hexValue;
 @property (nonatomic, strong, readonly) UIColor *color;
-@property (nonatomic, strong, readonly) NSArray<UIColor *> *colors;
+@property (nonatomic, strong, readonly) NSMutableArray<UIColor *> *colors;
+@property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, strong) NSString *identifier;
 
 + (instancetype)colorObjectWithHex:(NSString *)hex;
@@ -25,6 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<id>*)gradientCGColors;
 - (NSString *)displayHexValue;
+- (UIColor *)selectedColor;
+
+- (void)removeColor;
+- (void)addColor:(UIColor *)color;
+- (void)updateColor:(UIColor *)color;
+
+- (void)finalizeChange;
 
 - (instancetype)init NS_UNAVAILABLE;
 @end

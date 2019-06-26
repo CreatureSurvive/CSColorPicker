@@ -33,6 +33,6 @@ typedef NSUInteger CSColorSliderType;
 - (void)updateTrackImage;
 - (float)colorMaxValue;
 
-- (void)setBlurStyle:(UIBlurEffectStyle)style;
+- (void)setLightContent:(BOOL)lightContent;
 
 @end

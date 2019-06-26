@@ -49,12 +49,16 @@
 	UIButton *pushTable = [UIButton buttonWithType:UIButtonTypeSystem];
 	[pushTable setTitle:@"Push Table" forState:UIControlStateNormal];
 	[pushTable addTarget:self action:@selector(pushTable) forControlEvents:UIControlEventTouchUpInside];
+	UIButton *showCP = [UIButton buttonWithType:UIButtonTypeSystem];
+	[showCP setTitle:@"Show Color Picker" forState:UIControlStateNormal];
+	[showCP addTarget:self action:@selector(showConhtroller) forControlEvents:UIControlEventTouchUpInside];
 	
 	[stack addArrangedSubview:pushCP];
 	[stack addArrangedSubview:presentCP];
 	[stack addArrangedSubview:pushGP];
 	[stack addArrangedSubview:presentGP];
 	[stack addArrangedSubview:pushTable];
+	[stack addArrangedSubview:showCP];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -65,7 +69,12 @@
 	[super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
-- (UIViewController *)pickerForType:(NSInteger)type {
+- (void)viewDidLayoutSubviews {
+	[super viewDidLayoutSubviews];
+	self->_gradient.frame = self.view.bounds;
+}
+
+- (CSColorPickerViewController *)pickerForType:(NSInteger)type {
 	static NSString *const COLOR_ID = @"test_color", *const GRADIENT_ID = @"test_gradient";
 	CSColorObject *colorObject;
 	
@@ -115,6 +124,17 @@
 - (void)pushTable {
 	TableViewController *tvc = [[TableViewController alloc] init];
 	[self.navigationController pushViewController:tvc animated:YES];
+}
+
+- (void)showConhtroller {
+	CSColorPickerViewController *vc = [self pickerForType:0];
+	vc.useSafeArea = NO;
+	UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+	nc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+	nc.view.frame = CGRectMake(0, 0, 200, 300);
+	nc.view.center = self.view.center;
+	[self addChildViewController:nc];
+	[self.view addSubview:nc.view];
 }
 
 #pragma mark - CSColorPickerDelegate

@@ -320,12 +320,11 @@
     [self.colorTrackImageView setImage:self.currentTrackImage];
 }
 
-- (void)setBlurStyle:(UIBlurEffectStyle)style {
-	BOOL isDark = (style == UIBlurEffectStyleDark);
+- (void)setLightContent:(BOOL)lightContent {
 	if (_sliderLabel)
-		[_sliderLabel setTextColor:isDark ? UIColor.lightTextColor : UIColor.darkGrayColor];
+		[_sliderLabel setTextColor:lightContent ? UIColor.lightTextColor : UIColor.darkGrayColor];
 	if (_sliderValueLabel)
-		[_sliderValueLabel setTextColor:isDark ? UIColor.lightTextColor : UIColor.darkGrayColor];
+		[_sliderValueLabel setTextColor:lightContent ? UIColor.lightTextColor : UIColor.darkGrayColor];
 }
 
 @end

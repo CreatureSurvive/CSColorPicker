@@ -41,7 +41,7 @@
 	CSColorObject * object = [CSColorObject new];
 	object->_isGradient = YES;
 	object->_hexValue = hex;
-	object->_colors = [hex cscp_gradientStringColors];
+	object->_colors = [hex cscp_gradientStringColors].mutableCopy;
 	
 	return object;
 }
@@ -50,7 +50,7 @@
 	if (!colors || !colors.count) colors = @[UIColor.redColor, UIColor.redColor];
 	CSColorObject * object = [CSColorObject new];
 	object->_isGradient = YES;
-	object->_colors = colors;
+	object->_colors = colors.mutableCopy;
 	object->_hexValue = [self _stringFromColorArray:colors forDisplay:NO];
 	
 	return object;
@@ -90,6 +90,45 @@
 	}
 	
 	return _displayHexValue;
+}
+
+- (void)updateColor:(UIColor *)color {
+	if (!color) return;
+	if (!_isGradient) {
+		_color = color;
+		_hexValue = nil; _displayHexValue = nil;
+	}
+	else if (_colors.count > _selectedIndex) {
+		_colors[_selectedIndex] = color;
+		_hexValue = nil; _displayHexValue = nil; _gradientCGColors = nil;
+	}
+}
+
+- (void)addColor:(UIColor *)color {
+	if (!_isGradient) return;
+	[_colors addObject:color];
+	_hexValue = nil; _displayHexValue = nil; _gradientCGColors = nil;
+}
+
+- (void)removeColor {
+	if (!_isGradient) return;
+//	[_colors removeLastObject];
+	[_colors removeObjectAtIndex:_selectedIndex];
+	_hexValue = nil; _displayHexValue = nil; _gradientCGColors = nil;
+}
+
+- (UIColor *)selectedColor {
+	if (!_isGradient) return _color;
+	else return _colors[_selectedIndex];
+}
+
+- (void)finalizeChange {
+	if (!_isGradient) {
+		if (!_hexValue) _hexValue = [_color cscp_hexString];
+	}
+	else if (_colors.count > _selectedIndex) {
+		if (!_hexValue) _hexValue = [self.class _stringFromColorArray:_colors forDisplay:NO];
+	}
 }
 
 @end

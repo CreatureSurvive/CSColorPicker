@@ -6,7 +6,9 @@
 #import "CSColorPickerViewController.h"
 #import "CSColorSlider.h"
 #import "CSColorPickerPreviewView.h"
-#import "CSGradientSelection.h"
+#import "CSGradientSelector.h"
+#import "CSColorObjectManager.h"
+#import "CSColorSelector.h"
 
 #import "UIColor+CSColorPicker_Internal.h"
 #import "UIImage+CSColorPicker_Internal.h"
@@ -19,22 +21,21 @@
 	BOOL _isGradient;
 	BOOL _alphaEnabled;
 	UIView *_containerView;
-	NSInteger _selectedIndex;
-    NSLayoutConstraint *_topConstraint;
-	NSArray<CSColorSlider*> *_sliders;
     CSColorPickerPreviewView *_previewView;
-    CSGradientSelection *_colorSelector;
+    CSGradientSelector *_colorSelector;
 	UIStackView *_topStack;
 	UIStackView *_bottomStack;
+	CSColorObjectManager *_colorManager;
 }
 
 #pragma Mark - Initialiation
 
 - (instancetype)initWithColor:(UIColor *)color showingAlpha:(BOOL)alphaEnabled {
 	if ((self = [super init])) {
-		_color = color;
 		_alphaEnabled = alphaEnabled;
 		_blurStyle = UIBlurEffectStyleExtraLight;
+		_useSafeArea = YES;
+		_colorObject = [CSColorObject colorObjectWithColor:color];
 	}
 	
 	return self;
@@ -42,10 +43,11 @@
 
 - (instancetype)initWithColors:(NSArray<UIColor*> *)colors showingAlpha:(BOOL)alphaEnabled {
 	if ((self = [super init])) {
-		_colors = [colors mutableCopy];
 		_alphaEnabled = alphaEnabled;
 		_isGradient = YES;
 		_blurStyle = UIBlurEffectStyleExtraLight;
+		_useSafeArea = YES;
+		_colorObject = [CSColorObject gradientObjectWithColors:colors];
 	}
 	
 	return self;
@@ -54,12 +56,11 @@
 - (instancetype)initWithColorObject:(CSColorObject *)colorObject showingAlpha:(BOOL)alphaEnabled {
 	if ((self = [super init])) {
 		_isGradient = colorObject.isGradient;
-		_colors = colorObject.colors ? [colorObject.colors mutableCopy] : nil;
-		_color = colorObject.color;
 		_identifier = colorObject.identifier;
+		_colorObject = colorObject;
 		_alphaEnabled = alphaEnabled;
-		_selectedIndex = _isGradient ? _colors.count - 1 : 0;
 		_blurStyle = UIBlurEffectStyleExtraLight;
+		_useSafeArea = YES;
 	}
 	
 	return self;
@@ -69,6 +70,7 @@
 
 - (void)loadView {
 	[super loadView];
+	_colorManager = [[CSColorObjectManager alloc] initWithColorType:CSColorTypeAll colorObject:_colorObject target:self action:@selector(colorDidChange:)];
 	
 	// create views
 	_containerView = [[UIView alloc] initWithFrame:[self calculatedBounds]];
@@ -93,38 +95,23 @@
 	UIVisualEffectView *bottomBlur = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:self.blurStyle]];
 	bottomBlur.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	
-	// sliders
-	_sliders = @[
-		 [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeHue label:Localize("H") startColor:[self startColor]],
-		 [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeSaturation label:Localize("S") startColor:[self startColor]],
-		 [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeBrightness label:Localize("B") startColor:[self startColor]],
-		 [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeRed label:Localize("R") startColor:[self startColor]],
-		 [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeGreen label:Localize("G") startColor:[self startColor]],
-		 [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeBlue label:Localize("B") startColor:[self startColor]],
-		 [[CSColorSlider alloc] initWithFrame:CGRectZero sliderType:CSColorSliderTypeAlpha label:Localize("A") startColor:[self startColor]]
-	];
-	
-	// slider actions
-	for (CSColorSlider *slider in _sliders) {
-		[slider addTarget:self action:@selector(sliderDidChange:) forControlEvents:UIControlEventValueChanged];
-		[slider addTarget:self action:@selector(valueDidUpdate:) forControlEvents:(UIControlEventTouchUpInside | UIControlEventTouchUpOutside)];
-	}
-	
 	// gradient
-	_colorSelector = [[CSGradientSelection alloc] initWithSize:CGSizeZero target:self addAction:@selector(addAction:) removeAction:@selector(removeAction:) selectAction:@selector(selectAction:)];
-	[_colorSelector addColors:self.colors];
-	if (_isGradient) [_colorSelector.heightAnchor constraintEqualToConstant:50.0].active = YES;
+	_colorSelector = [[CSGradientSelector alloc] initWithFrame:CGRectZero colorObject:_colorObject];
+	[_colorSelector addTarget:self action:@selector(addAction:) forControlEvents:CSColorSelectionAdd];
+	[_colorSelector addTarget:self action:@selector(removeAction:) forControlEvents:CSColorSelectionRemove];
+	[_colorSelector addTarget:self action:@selector(selectAction:) forControlEvents:CSColorSelectionChanged];
+//	if (_isGradient) [_colorSelector.heightAnchor constraintEqualToConstant:50.0].active = YES;
 
 	// view hierarchy
 	[_topStack addSubview:topBlur];
 	[_bottomStack addSubview:bottomBlur];
-	[_bottomStack addArrangedSubview:[self sliderOfType:CSColorSliderTypeHue]];
-	[_bottomStack addArrangedSubview:[self sliderOfType:CSColorSliderTypeSaturation]];
-	[_bottomStack addArrangedSubview:[self sliderOfType:CSColorSliderTypeBrightness]];
-	[_bottomStack addArrangedSubview:[self sliderOfType:CSColorSliderTypeAlpha]];
-	[_topStack addArrangedSubview:[self sliderOfType:CSColorSliderTypeRed]];
-	[_topStack addArrangedSubview:[self sliderOfType:CSColorSliderTypeGreen]];
-	[_topStack addArrangedSubview:[self sliderOfType:CSColorSliderTypeBlue]];
+	[_bottomStack addArrangedSubview:[_colorManager sliderOfType:CSColorSliderTypeHue]];
+	[_bottomStack addArrangedSubview:[_colorManager sliderOfType:CSColorSliderTypeSaturation]];
+	[_bottomStack addArrangedSubview:[_colorManager sliderOfType:CSColorSliderTypeBrightness]];
+	[_bottomStack addArrangedSubview:[_colorManager sliderOfType:CSColorSliderTypeAlpha]];
+	[_topStack addArrangedSubview:[_colorManager sliderOfType:CSColorSliderTypeRed]];
+	[_topStack addArrangedSubview:[_colorManager sliderOfType:CSColorSliderTypeGreen]];
+	[_topStack addArrangedSubview:[_colorManager sliderOfType:CSColorSliderTypeBlue]];
 	[_topStack addArrangedSubview:_colorSelector];
 	[_containerView addSubview:_previewView.labelContainer];
 	[_containerView addSubview:_topStack];
@@ -133,13 +120,12 @@
 	[self.view insertSubview:_containerView atIndex:1];
 	
 	// alpha|gradient enabled
-	[self sliderOfType:CSColorSliderTypeAlpha].hidden = !_alphaEnabled;
-	[self sliderOfType:CSColorSliderTypeAlpha].userInteractionEnabled = _alphaEnabled;
+	[_colorManager sliderOfType:CSColorSliderTypeAlpha].hidden = !_alphaEnabled;
+	[_colorManager sliderOfType:CSColorSliderTypeAlpha].userInteractionEnabled = _alphaEnabled;
 	_colorSelector.hidden = !_isGradient;
 	_colorSelector.userInteractionEnabled = _isGradient;
 	
 	[self setBlurStyle:self.blurStyle];
-	[self updateColorObject];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -158,7 +144,7 @@
 	}
 	
 	[UIView animateWithDuration:0.3 animations:^{
-		[self->_previewView setPreviewColor:[self startColor]];
+		[self->_previewView setPreviewColor:self->_colorObject.selectedColor];
 	}];
 
 	[self setLayoutConstraints];
@@ -196,25 +182,27 @@
 }
 
 - (void)updateView {
-	CGRect bounds = [self calculatedBounds];
-	[_containerView setFrame:bounds];
-	_topConstraint.constant = [self navigationHeight];
-	[_previewView setPreviewColor:[self colorForHSBSliders]];
+	[_containerView setFrame:[self calculatedBounds]];
+	[_previewView setPreviewColor:[_colorManager hsbaColor]];
 }
 
 - (CGRect)calculatedBounds {
-    UIEdgeInsets insets = UIEdgeInsetsZero;
-	if (@available(iOS 11.0, *)) insets = [self.view safeAreaInsets];
-	insets.top = 0;
-
-    return UIEdgeInsetsInsetRect(self.view.bounds, insets);
+	
+	UIEdgeInsets insets = UIEdgeInsetsZero;
+	if (self.useSafeArea) {
+		if (@available(iOS 11.0, *)) insets = [self.view safeAreaInsets];
+		insets.top = [self navigationHeightWithStatusbar:YES];
+	} else {
+		insets.top = [self navigationHeightWithStatusbar:NO];
+	}
+	
+	return UIEdgeInsetsInsetRect(self.view.bounds, insets);
 }
 
 - (void)setBlurStyle:(UIBlurEffectStyle)blurStyle {
 	_blurStyle = blurStyle;
-	for (CSColorSlider *slider in _sliders) {
-		[slider setBlurStyle:blurStyle];
-	}
+	[_colorSelector setLightContent:blurStyle == UIBlurEffectStyleDark];
+	[_colorManager setLightContent:blurStyle == UIBlurEffectStyleDark];
 	[(UIVisualEffectView *)_topStack.subviews.firstObject setEffect:[UIBlurEffect effectWithStyle:blurStyle]];
 	[(UIVisualEffectView *)_bottomStack.subviews.firstObject setEffect:[UIBlurEffect effectWithStyle:blurStyle]];
 	[_previewView setDarkMode:blurStyle == UIBlurEffectStyleDark];
@@ -231,81 +219,27 @@
 	[self setBlurStyle:(self->_blurStyle == UIBlurEffectStyleDark) ? UIBlurEffectStyleExtraLight : UIBlurEffectStyleDark animated:YES];
 }
 
-- (CSColorSlider *)sliderOfType:(CSColorSliderType)type {
-	return _sliders[type];
-}
-
 #pragma Mark - CSColorPickerViewController (Actions)
 
 - (void)valueDidUpdate:(CSColorSlider *)slider {
-	[self updateColorObject];
 	if (self.delegate && [self.delegate respondsToSelector:@selector(colorPicker:didUpdateColor:)]) {
 		[self.delegate colorPicker:self didUpdateColor:_colorObject];
 	}
 }
 
-- (void)sliderDidChange:(CSColorSlider *)sender {
-	NSUInteger fullValue = sender.value * sender.colorMaxValue;
-	if (fullValue != sender.lastValue) {
-		sender.lastValue = fullValue;
+- (void)colorDidChange:(CSColorObject *)colorObject {
+	_colorObject = colorObject;
+	[_colorObject setIdentifier:self.identifier];
 	
-		UIColor *color = (sender.sliderType > 2) ? [self colorForRGBSliders] : [self colorForHSBSliders];
-		[self updateColor:color animated:NO];
+	if (_isGradient) {
+		[_colorSelector setColor:colorObject.selectedColor atIndex:_colorManager.gradientIndex];
 	}
 }
 
 #pragma Mark - CSColorPickerViewController (Colors)
 
-- (UIColor *)colorForHSBSliders {
-	return [UIColor colorWithHue:[self sliderOfType:CSColorSliderTypeHue].value
-					  saturation:[self sliderOfType:CSColorSliderTypeSaturation].value
-					  brightness:[self sliderOfType:CSColorSliderTypeBrightness].value
-						   alpha:[self sliderOfType:CSColorSliderTypeAlpha].value];
-}
-
-- (UIColor *)colorForRGBSliders {
-	return [UIColor colorWithRed:[self sliderOfType:CSColorSliderTypeRed].value
-						   green:[self sliderOfType:CSColorSliderTypeGreen].value
-							blue:[self sliderOfType:CSColorSliderTypeBlue].value
-						   alpha:[self sliderOfType:CSColorSliderTypeAlpha].value];
-}
-
-- (void)updateColorObject {
-	if (_isGradient) _colorObject = [CSColorObject gradientObjectWithColors:self.colors];
-	else _colorObject = [CSColorObject colorObjectWithColor:self.color];
-	if (self.identifier) _colorObject.identifier = self.identifier;
-}
-
-- (void)updateColor:(UIColor *)color animated:(BOOL)animated{
-    [self setColor:color animated:animated];
-	
-	if (_isGradient) {
-        self.colors[_selectedIndex] = color;
-        [_colorSelector setColor:color atIndex:_selectedIndex];
-	}
-}
-
-- (void)setColor:(UIColor *)color animated:(BOOL)animated {
-	self.color = color;
-    void (^update)(void) = ^void(void) {
-		for (CSColorSlider *slider in self->_sliders) {
-			[slider setColor:color];
-		}
-
-        [self->_previewView setPreviewColor:color];
-    };
-
-    if (animated) 
-        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{ update(); } completion:nil];
-    else 
-        update();
-}
-
-- (UIColor *)startColor {
-    return _isGradient ? self.colors.lastObject : self.color;
-}
-
 - (void)saveColor {
+	[_colorObject finalizeChange];
 	// save in NSUserDefaults
 	if (self.identifier)
 		[[NSUserDefaults standardUserDefaults] setObject:_colorObject.hexValue forKey:self.identifier];
@@ -323,45 +257,40 @@
 
 #pragma Mark - CSColorPickerViewController (Color Selection Actions)
 
-- (void)addAction:(UIButton *)sender {
-    UIColor *color = [self.colors.lastObject complementaryColor];
-    [self.colors addObject:color];
-    [_colorSelector addColor:color];
-    [self setColor:self.colors.lastObject animated:YES];
-    _selectedIndex = self.colors.count - 1;
-	[self updateColorObject];
+- (void)addAction:(CSGradientSelector *)sender {
+    UIColor *color = [_colorObject.colors.lastObject complementaryColor];
+	[_colorManager addColor:color];
+    [_colorSelector addColor:color animated:YES];
 }
 
-- (void)removeAction:(UIButton *)sender {
-    [self.colors removeObjectAtIndex:_selectedIndex];
-    [_colorSelector removeColorAtIndex:_selectedIndex];
-    [self setColor:self.colors.lastObject animated:YES];
-    _selectedIndex = self.colors.count - 1;
-	[self updateColorObject];
+- (void)removeAction:(CSGradientSelector *)sender {
+	NSInteger index = _colorManager.gradientIndex;
+	[_colorManager removeColor];
+    [_colorSelector removeColorAtIndex:index animated:YES];
 }
 
-- (void)selectAction:(UIButton *)sender {
-    [self setColor:self.colors[sender.titleLabel.tag] animated:YES];
-    _selectedIndex = sender.titleLabel.tag;
+- (void)selectAction:(CSGradientSelector *)sender {
+	[_colorManager setGradientIndex:sender.index animated:YES];
 }
 
 - (void)presentHexColorAlert {
+	[_colorObject finalizeChange];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:Localize("ALERT_TITLE") message:Localize("ALERT_MESSAGE") preferredStyle:UIAlertControllerStyleAlert];
 
     [alertController addTextFieldWithConfigurationHandler:^(UITextField *hexField) {
-        hexField.text = [NSString stringWithFormat:@"#%@", [[self colorForHSBSliders] cscp_hexString]];
+        hexField.text = [self->_colorManager colorObject].selectedColor.cscp_hexString;
 		hexField.clearButtonMode = UITextFieldViewModeAlways;
     }];
 
     [alertController addAction:[UIAlertAction actionWithTitle:Localize("ALERT_COPY") style:UIAlertActionStyleDefault handler:^(UIAlertAction *copy) {
-        [[UIPasteboard generalPasteboard] setString:[self colorForHSBSliders].cscp_hexStringWithAlpha];
+		[[UIPasteboard generalPasteboard] setString:[self->_colorManager colorObject].hexValue];
     }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:Localize("ALERT_SET") style:UIAlertActionStyleDefault handler:^(UIAlertAction *set) {
-        [self updateColor:[UIColor cscp_colorFromHexString:alertController.textFields[0].text] animated:YES];
+        [self->_colorManager setColor:[UIColor cscp_colorFromHexString:alertController.textFields[0].text] animated:YES];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:Localize("ALERT_PASTEBOARD") style:UIAlertActionStyleDefault handler:^(UIAlertAction *set) {
-        [self updateColor:[UIColor cscp_colorFromHexString:[UIPasteboard generalPasteboard].string] animated:YES];
+        [self->_colorManager setColor:[UIColor cscp_colorFromHexString:[UIPasteboard generalPasteboard].string] animated:YES];
     }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:Localize("ALERT_CANCEL") style:UIAlertActionStyleCancel handler:nil]];
@@ -376,7 +305,7 @@
 	
 	BOOL landscape = [self isLandscape];
 	NSInteger rowCount = 6 + _alphaEnabled;
-	CGFloat sliderHeight = landscape ? sliderHeight = (CGRectGetHeight(_containerView.bounds) - [self navigationHeight] - (_isGradient ? 50 : 0)) / rowCount : SLIDER_HEIGHT;
+	CGFloat sliderHeight = landscape ? sliderHeight = (CGRectGetHeight(_containerView.bounds) - (_isGradient ? 50 : 0)) / rowCount : SLIDER_HEIGHT;
 	CGFloat widthMultiplier = landscape ? 0.5 : 1;
 	
 	if (landscape && _isGradient) {
@@ -391,7 +320,7 @@
 
     NSArray *constraints = @[
 		// top stack constraints
-		[NSLayoutConstraint constraintWithItem:_topStack attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeTop multiplier:1 constant:[self navigationHeight]],
+		[NSLayoutConstraint constraintWithItem:_topStack attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeTop multiplier:1 constant:0],
 		[NSLayoutConstraint constraintWithItem:_topStack attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
 		[NSLayoutConstraint constraintWithItem:_topStack attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:(sliderHeight * 3) + (_isGradient ? 50 : 0)],
 		// bottom stack constraints
@@ -401,11 +330,10 @@
 		// label constraints
 		[NSLayoutConstraint constraintWithItem:_previewView.labelContainer attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeWidth multiplier:widthMultiplier constant:0],
 		[NSLayoutConstraint constraintWithItem:_previewView.labelContainer attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeTrailing multiplier:1 constant:0],
-		[NSLayoutConstraint constraintWithItem:_previewView.labelContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:landscape ? _containerView : _topStack attribute:landscape ? NSLayoutAttributeTop : NSLayoutAttributeBottom multiplier:1 constant:landscape ? [self navigationHeight] : 0],
+		[NSLayoutConstraint constraintWithItem:_previewView.labelContainer attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_topStack attribute:landscape ? NSLayoutAttributeTop : NSLayoutAttributeBottom multiplier:1 constant:0],
 		[NSLayoutConstraint constraintWithItem:_previewView.labelContainer attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:landscape ? _containerView : _bottomStack attribute:landscape ? NSLayoutAttributeBottom : NSLayoutAttributeTop multiplier:1 constant:0]
     ];
 
-    _topConstraint = constraints.firstObject;
     [_containerView addConstraints:constraints];
 }
 

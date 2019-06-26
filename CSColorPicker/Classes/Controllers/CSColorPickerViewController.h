@@ -12,11 +12,10 @@
 
 @interface CSColorPickerViewController : UIViewController
 
-@property (nonatomic, retain) UIColor *color;
-@property (nonatomic, retain) NSMutableArray<UIColor *> *colors;
 @property (nonatomic, retain) NSString *identifier;
 @property (nonatomic, assign) UIBlurEffectStyle blurStyle;
 @property (nonatomic, assign) BOOL showsDarkmodeToggle;
+@property (nonatomic, assign) BOOL useSafeArea;
 @property (nonatomic, assign) id<CSColorPickerDelegate> delegate;
 @property (nonatomic, assign) id<CSColorCellObject> cellObject;
 @property (nonatomic, readonly) CSColorObject *colorObject;

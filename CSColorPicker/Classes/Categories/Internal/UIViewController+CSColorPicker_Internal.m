@@ -10,8 +10,8 @@
 
 @implementation UIViewController (CSColorPicker_Internal)
 
-- (CGFloat)navigationHeight {
-	return [self isLandscape] ?
+- (CGFloat)navigationHeightWithStatusbar:(BOOL)withStatusbar {
+	return ([self isLandscape] || !withStatusbar) ?
 		self.navigationController.navigationBar.frame.size.height :
 		self.navigationController.navigationBar.frame.size.height + UIApplication.sharedApplication.statusBarFrame.size.height;
 }
